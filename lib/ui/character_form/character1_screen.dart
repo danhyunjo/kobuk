@@ -13,7 +13,19 @@ class _Character1ScreenState extends State<Character1Screen> {
     return Scaffold(
       body:
       Column(
-        children : []
+        children : [
+          Image.asset('assets/images/dark_blue_wave.png'),
+          Image.asset('assets/images/character/q1/question.png'),
+          Row(
+            children: [
+              ElevatedButton(onPressed: (){}, child: Image.asset('assets/images/character/q1/choice1.png')),
+              ElevatedButton(onPressed: (){}, child: Image.asset('assets/images/character/q1/choice2.png')),
+              ElevatedButton(onPressed: (){}, child: Image.asset('assets/images/character/q1/choice3.png')),
+
+            ],
+          )
+
+        ]
       ),
     );
   }

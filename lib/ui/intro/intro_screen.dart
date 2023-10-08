@@ -3,6 +3,7 @@ import 'package:logger/logger.dart';
 
 import '../../core/route/route_name.dart';
 import 'package:audioplayers/audioplayers.dart';
+import '../../core/logic/sound_player.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -12,19 +13,19 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  String audioPath = 'assets/sounds/intro.mp3';
-  final audioPlayer = AudioPlayer();
+  final String audioPath = 'sounds/intro.mp3';
+  final SoundPlayerLogic _logic = SoundPlayerLogic();
 
   @override
   void initState() {
     super.initState();
-    try {
-      final player = AudioPlayer();
-      player.play(AssetSource('sounds/intro.mp3'));
-    } catch (error) {
-      Logger().e(error.toString());
-      throw Exception(error);
-    }
+    _logic.playSound(audioPath);
+  }
+
+  @override
+  void dispose(){
+    _logic.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,7 +36,6 @@ class _IntroScreenState extends State<IntroScreen> {
         Text(
             '이 연구는 정부(과학기술정보통신부)의 재원으로 한국연구재단의 지원을 받아  수행하는  ‘ 머신러닝 기반 초등 저학년 문해력 기초 진단도구 개발 입니다.'),
         Text('초등 1학년 문해력 진단 검사'),
-
         ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, RouteName.fullExam);
