@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/logic/sound_player.dart';
 import '../../core/route/route_name.dart';
 
 class FullExampleScreen extends StatefulWidget {
@@ -10,6 +11,21 @@ class FullExampleScreen extends StatefulWidget {
 }
 
 class _FullExampleScreenState extends State<FullExampleScreen> {
+  final String audioPath = 'sounds/full_exam.mp3';
+  final SoundPlayerLogic _logic = SoundPlayerLogic();
+
+  @override
+  void initState() {
+    super.initState();
+    _logic.playSound(audioPath);
+  }
+
+  @override
+  void dispose(){
+    _logic.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

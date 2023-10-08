@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
 
-class SightExampleScreen extends StatelessWidget {
+import '../../core/logic/sound_player.dart';
+
+class SightExampleScreen extends StatefulWidget {
   const SightExampleScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SightExampleScreen> createState() => _SightExampleScreenState();
+}
+
+class _SightExampleScreenState extends State<SightExampleScreen> {
+  final String audioPath = 'sounds/sight_exam.mp3';
+  final SoundPlayerLogic _logic = SoundPlayerLogic();
+
+  @override
+  void initState() {
+    super.initState();
+    _logic.playSound(audioPath);
+  }
+
+  @override
+  void dispose(){
+    _logic.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

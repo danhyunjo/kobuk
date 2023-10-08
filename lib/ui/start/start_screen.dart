@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:kobuk/core/route/route_name.dart';
 
-class StartScreen extends StatelessWidget {
+import '../../core/logic/sound_player.dart';
+
+class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
 
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
+  final String audioPath = 'sounds/start.mp3';
+  final SoundPlayerLogic _logic = SoundPlayerLogic();
+
+  @override
+  void initState() {
+    super.initState();
+    _logic.playSound(audioPath);
+  }
+
+  @override
+  void dispose(){
+    _logic.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +39,9 @@ class StartScreen extends StatelessWidget {
             )
             ,
             Image.asset('assets/images/light_blue_wave.png'),
-            ElevatedButton(onPressed: (){}, child: Icon(Icons.arrow_forward))
+            ElevatedButton(onPressed: (){
+              Navigator.pushNamed(context, RouteName.characterQ1);
+            }, child: Icon(Icons.arrow_forward))
 
           ],
         )
