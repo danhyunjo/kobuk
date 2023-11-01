@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kobuk/ui/preparation/sight_example_screen.dart';
 import '../../ui/character_form/character1_screen.dart';
+import '../../ui/character_form/character2_screen.dart';
+import '../../ui/character_form/character3_screen.dart';
+import '../../ui/character_form/character4_screen.dart';
+import '../../ui/character_form/character5_screen.dart';
 import '../../ui/start/start_screen.dart';
 import '/ui/intro/intro_screen.dart';
 import '/ui/preparation/full_example_screen.dart';
@@ -26,8 +30,8 @@ var namedRoutes = <String, WidgetBuilder>{	// <String, WidgetBuilder> 생략가�
   RouteName.postureExam: (context) => PostureExampleScreen(),
   RouteName.start: (context) => StartScreen(),
   RouteName.characterQ1: (context) => Character1Screen(),
-  // RouteName.characterQ2: (context) => Character2Screen(),
-  // RouteName.characterQ3: (context) => Character3Screen(),
-  // RouteName.characterQ4: (context) => Character4Screen(),
-  // RouteName.characterQ5: (context) => Character5Screen(),
+  RouteName.characterQ2: (context) => Character2Screen(),
+  RouteName.characterQ3: (context) => Character3Screen(),
+  RouteName.characterQ4: (context) => Character4Screen(),
+  RouteName.characterQ5: (context) => Character5Screen(),
 };

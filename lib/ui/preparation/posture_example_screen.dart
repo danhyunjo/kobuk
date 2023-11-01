@@ -32,8 +32,9 @@ class _PostureExampleScreenState extends State<PostureExampleScreen> {
       body:
         Column(
           children: [
-            Image.asset('assets/images/light_blue_wave.png'),
-            Image.asset('assets/images/posture_exam.png'),
+            Image.asset('assets/images/light_blue_wave.png',),
+            const SizedBox(height: 30,),
+            Image.asset('assets/images/posture_exam.png', width: MediaQuery.of(context).size.width * 0.9, height: MediaQuery.of(context).size.height * 0.7),
             ElevatedButton(onPressed: () {Navigator.pushNamed(context, RouteName.start);}, child:
             Icon(Icons.arrow_forward))
           ],

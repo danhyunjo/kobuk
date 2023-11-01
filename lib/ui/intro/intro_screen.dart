@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-
+import 'package:stroke_text/stroke_text.dart';
 import '../../core/route/route_name.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../core/logic/sound_player.dart';
@@ -23,7 +23,7 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _logic.dispose();
     super.dispose();
   }
@@ -32,19 +32,58 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-            '이 연구는 정부(과학기술정보통신부)의 재원으로 한국연구재단의 지원을 받아  수행하는  ‘ 머신러닝 기반 초등 저학년 문해력 기초 진단도구 개발 입니다.'),
-        Text('초등 1학년 문해력 진단 검사'),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteName.fullExam);
-            },
-            child: Icon(Icons.arrow_forward)),
-        Row(
+        const SizedBox(
+          height: 30,
+        ),
+        const Text(
+            '이 연구는 정부(과학기술정보통신부)의 재원으로 한국연구재단의 지원을 받아  수행하는  ‘ 머신러닝 기반 초등 저학년 문해력 기초 진단도구 개발 입니다.',
+            style: TextStyle(color: Colors.black12)),
+        const Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                StrokeText(
+                    text: '초등 1학년',
+                    textStyle: TextStyle(fontSize: 44, fontFamily: "HY"),
+                    strokeColor: Colors.blueAccent,
+                    strokeWidth: 1.2),
+                StrokeText(
+                      text: '문해력 진단 검사',
+                      textStyle: TextStyle(fontSize: 44, fontFamily: "HY"),
+                      strokeColor: Colors.blueAccent,
+                      strokeWidth: 1.2),
+              ],
+          ),
+        ),
+        Expanded(
+            child: Stack(
           children: [
-            Image.asset('assets/images/cheongjuuniv.jpg'),
-            Column(children: [Text('연구 책임자 한정혜'), Text('공동 연구자 심영택')])
+            Image.asset('assets/images/light_blue_wave.png'),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteName.fullExam);
+                  },
+                  child: Icon(Icons.arrow_forward)),
+            ),
+          ],
+        )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Column(
+              children: [
+                Image.asset('assets/images/cheongjuuniv.jpg'),
+                SizedBox(height:20)
+              ],
+            ),
+            const SizedBox(width: 20,),
+            const Column(
+                children: [
+                  Text('연구 책임자 한정혜', style: TextStyle(fontFamily: "HY"),),
+                  Text('공동 연구자 심영택', style: TextStyle(fontFamily: "HY"))])
           ],
         )
       ],

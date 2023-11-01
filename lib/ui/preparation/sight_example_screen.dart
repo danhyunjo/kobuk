@@ -32,6 +32,7 @@ class _SightExampleScreenState extends State<SightExampleScreen> {
         body: Column(
       children: [
         Image.asset('assets/images/light_blue_wave.png'),
+        const SizedBox(height: 30,),
         Image.asset('assets/images/sight_exam.png'),
         ElevatedButton(
             onPressed: () {
