@@ -34,11 +34,14 @@ class _FullExampleScreenState extends State<FullExampleScreen> {
           Image.asset('assets/images/light_blue_wave.png'),
           const SizedBox(height: 30,),
           Image.asset('assets/images/full_exam.png'),
-          ElevatedButton(
+          TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, RouteName.sightExam);
+                Navigator.pushNamed(context, RouteName.postureExam);
               },
-              child: Icon(Icons.arrow_forward))
+              child: Image.asset(
+                'assets/images/arrow.png',
+                width: MediaQuery.of(context).size.width*0.1,
+              )),
         ],
       ),
     );
