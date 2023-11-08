@@ -3,9 +3,6 @@ import 'package:audioplayers/audioplayers.dart';
 
 class SoundPlayerLogic {
   final audioPlayer = AudioPlayer();
-  // final String audioPath;
-
-  // SoundPlayerLogic({required this.audioPath});
 
   Future<void> playSound(String audioPath) async{
     try {
