@@ -13,7 +13,7 @@ class _LightBlue4ScreenState extends State<LightBlue4Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Image.asset('assets/images/light_blue_wave.png'),
+        Image.asset('assets/images/wave/light_blue_wave.png'),
         SizedBox(height: MediaQuery.of(context).size.height*0.3),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

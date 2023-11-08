@@ -15,7 +15,7 @@ class _DarkBlue4ScreenState extends State<DarkBlue4Screen> {
       body:
       Column(
           children : [
-            Image.asset('assets/images/dark_blue_wave.png', width: MediaQuery.of(context).size.width*1,fit: BoxFit.cover),
+            Image.asset('assets/images/wave/dark_blue_wave.png', width: MediaQuery.of(context).size.width*1,fit: BoxFit.cover),
             SizedBox(height:MediaQuery.of(context).size.height*0.08),
             Image.asset('assets/images/dark_blue/q4/question.png', width: MediaQuery.of(context).size.width*0.3, height: MediaQuery.of(context).size.height*0.25),
             SizedBox(height: MediaQuery.of(context).size.height*0.08,),

@@ -15,7 +15,7 @@ class _DarkBlue5ScreenState extends State<DarkBlue5Screen> {
       body:
       Column(
           children : [
-            Image.asset('assets/images/dark_blue_wave.png', width: MediaQuery.of(context).size.width*1,fit: BoxFit.cover),
+            Image.asset('assets/images/wave/dark_blue_wave.png', width: MediaQuery.of(context).size.width*1,fit: BoxFit.cover),
             SizedBox(height: MediaQuery.of(context).size.height*0.3),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

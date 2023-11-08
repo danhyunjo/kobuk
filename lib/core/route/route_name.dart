@@ -23,6 +23,26 @@ import '/ui/light_blue/lightblue10_screen.dart';
 import '/ui/light_blue/lightblue11_screen.dart';
 import '/ui/light_blue/lightblue12_screen.dart';
 import '/ui/light_blue/lightblue13_screen.dart';
+import '/ui/green/green1_screen.dart';
+import '/ui/green/green2_screen.dart';
+import '/ui/green/green3_screen.dart';
+import '/ui/green/green4_screen.dart';
+import '/ui/green/green5_screen.dart';
+import '/ui/green/green6_screen.dart';
+import '/ui/green/green7_screen.dart';
+import '/ui/green/green8_screen.dart';
+import '/ui/green/green9_screen.dart';
+import '/ui/violet/violet1_screen.dart';
+import '/ui/violet/violet2_screen.dart';
+import '/ui/violet/violet3_screen.dart';
+import '/ui/pink/pink1_screen.dart';
+import '/ui/pink/pink2_screen.dart';
+import '/ui/pink/pink3_screen.dart';
+import '/ui/pink/pink4_screen.dart';
+import '/ui/orange/orange1_screen.dart';
+import '/ui/orange/orange2_screen.dart';
+import '/ui/review/child_review_screen.dart';
+
 
 
 
@@ -53,6 +73,30 @@ class RouteName {
   static const lightblueQ12 = "/lightblueq12";
   static const lightblueQ13 = "/lightblueq13";
 
+  static const greenQ1 = "/greenq1";
+  static const greenQ2 = "/greenq2";
+  static const greenQ3 = "/greenq3";
+  static const greenQ4 = "/greenq4";
+  static const greenQ5 = "/greenq5";
+  static const greenQ6 = "/greenq6";
+  static const greenQ7 = "/greenq7";
+  static const greenQ8 = "/greenq8";
+  static const greenQ9 = "/greenq9";
+
+  static const violetQ1 = "/violetq1";
+  static const violetQ2 = "/violetq2";
+  static const violetQ3 = "/violetq3";
+
+  static const pinkQ1 = "/pinkq1";
+  static const pinkQ2 = "/pinkq2";
+  static const pinkQ3 = "/pinkq3";
+  static const pinkQ4 = "/pinkq4";
+
+  static const orangeQ1 = "/orangeq1";
+  static const orangeQ2 = "/orangeq2";
+
+  static const child_review = "/child_review";
+
 
 }
 
@@ -62,11 +106,13 @@ var namedRoutes = <String, WidgetBuilder>{	// <String, WidgetBuilder> 생략가�
   RouteName.sightExam: (context) => SightExampleScreen(),
   RouteName.postureExam: (context) => PostureExampleScreen(),
   RouteName.start: (context) => StartScreen(),
+
   RouteName.darkblueQ1: (context) => DarkBlue1Screen(),
   RouteName.darkblueQ2: (context) => DarkBlue2Screen(),
   RouteName.darkblueQ3: (context) => DarkBlue3Screen(),
   RouteName.darkblueQ4: (context) => DarkBlue4Screen(),
   RouteName.darkblueQ5: (context) => DarkBlue5Screen(),
+
   RouteName.lightblueQ1: (context) => LightBlue1Screen(),
   RouteName.lightblueQ2: (context) => LightBlue2Screen(),
   RouteName.lightblueQ3: (context) => LightBlue3Screen(),
@@ -80,4 +126,29 @@ var namedRoutes = <String, WidgetBuilder>{	// <String, WidgetBuilder> 생략가�
   RouteName.lightblueQ11: (context) => LightBlue11Screen(),
   RouteName.lightblueQ12: (context) => LightBlue12Screen(),
   RouteName.lightblueQ13: (context) => LightBlue13Screen(),
+
+  RouteName.greenQ1: (context) => Green1Screen(),
+  RouteName.greenQ2: (context) => Green2Screen(),
+  RouteName.greenQ3: (context) => Green3Screen(),
+  RouteName.greenQ4: (context) => Green4Screen(),
+  RouteName.greenQ5: (context) => Green5Screen(),
+  RouteName.greenQ6: (context) => Green6Screen(),
+  RouteName.greenQ7: (context) => Green7Screen(),
+  RouteName.greenQ8: (context) => Green8Screen(),
+  RouteName.greenQ9: (context) => Green9Screen(),
+
+  RouteName.violetQ1: (context) => Violet1Screen(),
+  RouteName.violetQ2: (context) => Violet2Screen(),
+  RouteName.violetQ3: (context) => Violet3Screen(),
+
+  RouteName.pinkQ1: (context) => Pink1Screen(),
+  RouteName.pinkQ2: (context) => Pink2Screen(),
+  RouteName.pinkQ3: (context) => Pink3Screen(),
+  RouteName.pinkQ4: (context) => Pink4Screen(),
+
+  RouteName.orangeQ1: (context) => Orange1Screen(),
+  RouteName.orangeQ2: (context) => Orange2Screen(),
+
+  RouteName.child_review: (contexet) => ChildReview()
+
 };

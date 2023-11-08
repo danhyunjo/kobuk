@@ -13,19 +13,19 @@ class _LightBlue12ScreenState extends State<LightBlue12Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Image.asset('assets/images/light_blue_wave.png'),
+        Image.asset('assets/images/wave/light_blue_wave.png'),
         SizedBox(height: MediaQuery.of(context).size.height*0.1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              child: Image.asset('assets/images/lightblue/q12/choice1.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35,),
+              child: Image.asset('assets/images/light_blue/q12/choice1.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35,),
               onPressed: (){
                 Navigator.pushNamed(context, RouteName.lightblueQ13);
               },
             ),
             TextButton(
-              child: Image.asset('assets/images/lightblue/q12/choice2.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
+              child: Image.asset('assets/images/light_blue/q12/choice2.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
               onPressed: (){
                 Navigator.pushNamed(context, RouteName.lightblueQ13);
               },
@@ -35,13 +35,13 @@ class _LightBlue12ScreenState extends State<LightBlue12Screen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              child: Image.asset('assets/images/lightblue/q12/choice3.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
+              child: Image.asset('assets/images/light_blue/q12/choice3.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
               onPressed: (){
                 Navigator.pushNamed(context, RouteName.lightblueQ13);
               },
             ),
             TextButton(
-              child: Image.asset('assets/images/lightblue/q12/choice4.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
+              child: Image.asset('assets/images/light_blue/q12/choice4.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
               onPressed: (){
                 Navigator.pushNamed(context, RouteName.lightblueQ13);
               },
