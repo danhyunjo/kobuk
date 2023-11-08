@@ -15,7 +15,7 @@ class _DarkBlue3ScreenState extends State<DarkBlue3Screen> {
       body:
       Column(
           children : [
-            Image.asset('assets/images/dark_blue_wave.png', width: MediaQuery.of(context).size.width*1,fit: BoxFit.cover),
+            Image.asset('assets/images/wave/dark_blue_wave.png', width: MediaQuery.of(context).size.width*1,fit: BoxFit.cover),
             SizedBox(height: MediaQuery.of(context).size.height*0.08,),
             Image.asset('assets/images/dark_blue/q3/question.png',width: MediaQuery.of(context).size.width* 0.8, height: MediaQuery.of(context).size.height*0.3,),
             SizedBox(height: MediaQuery.of(context).size.height*0.08,),

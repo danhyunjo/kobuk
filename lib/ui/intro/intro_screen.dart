@@ -60,7 +60,7 @@ class _IntroScreenState extends State<IntroScreen> {
         Expanded(
                 child: Stack(
           children: [
-            Image.asset('assets/images/light_blue_wave.png'),
+            Image.asset('assets/images/wave/light_blue_wave.png'),
             Center(child:
             TextButton(
                 onPressed: () {
@@ -89,7 +89,11 @@ class _IntroScreenState extends State<IntroScreen> {
                 style: TextStyle(fontFamily: "HY"),
               ),
               Text('공동 연구자 심영택', style: TextStyle(fontFamily: "HY"))
-            ])
+            ]),
+            const SizedBox(
+              width: 20,
+            ),
+
           ],
         )
       ],

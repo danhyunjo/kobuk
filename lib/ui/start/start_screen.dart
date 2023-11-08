@@ -38,7 +38,7 @@ class _StartScreenState extends State<StartScreen> {
     ],
             )
             ,
-            Image.asset('assets/images/light_blue_wave.png'),
+            Image.asset('assets/images/wave/light_blue_wave.png'),
             ElevatedButton(onPressed: (){
               Navigator.pushNamed(context, RouteName.darkblueQ1);
             }, child: Icon(Icons.arrow_forward))

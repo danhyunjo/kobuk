@@ -13,7 +13,7 @@ class _LightBlue1ScreenState extends State<LightBlue1Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Image.asset('assets/images/light_blue_wave.png'),
+        Image.asset('assets/images/wave/light_blue_wave.png'),
         Stack(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height*0.3),

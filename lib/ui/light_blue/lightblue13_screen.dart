@@ -13,21 +13,21 @@ class _LightBlue13ScreenState extends State<LightBlue13Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Image.asset('assets/images/light_blue_wave.png'),
+        Image.asset('assets/images/wave/light_blue_wave.png'),
         SizedBox(height: MediaQuery.of(context).size.height*0.1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              child: Image.asset('assets/images/lightblue/q13/choice1.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35,),
+              child: Image.asset('assets/images/light_blue/q13/choice1.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35,),
               onPressed: (){
-                Navigator.pushNamed(context, RouteName.lightblueQ13);
+                Navigator.pushNamed(context, RouteName.greenQ1);
               },
             ),
             TextButton(
-              child: Image.asset('assets/images/lightblue/q13/choice2.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
+              child: Image.asset('assets/images/light_blue/q13/choice2.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
               onPressed: (){
-                Navigator.pushNamed(context, RouteName.lightblueQ13);
+                Navigator.pushNamed(context, RouteName.greenQ1);
               },
             ),
           ],),
@@ -35,15 +35,15 @@ class _LightBlue13ScreenState extends State<LightBlue13Screen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              child: Image.asset('assets/images/lightblue/q13/choice3.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
+              child: Image.asset('assets/images/light_blue/q13/choice3.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
               onPressed: (){
-                Navigator.pushNamed(context, RouteName.lightblueQ13);
+                Navigator.pushNamed(context, RouteName.greenQ1);
               },
             ),
             TextButton(
-              child: Image.asset('assets/images/lightblue/q13/choice4.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
+              child: Image.asset('assets/images/light_blue/q13/choice4.png',width: MediaQuery.of(context).size.height*0.35, height: MediaQuery.of(context).size.height*0.35),
               onPressed: (){
-                Navigator.pushNamed(context, RouteName.lightblueQ13);
+                Navigator.pushNamed(context, RouteName.greenQ1);
               },
             ),
           ],)
