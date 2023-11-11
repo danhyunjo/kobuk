@@ -42,6 +42,7 @@ import '/ui/pink/pink4_screen.dart';
 import '/ui/orange/orange1_screen.dart';
 import '/ui/orange/orange2_screen.dart';
 import '/ui/review/child_review_screen.dart';
+import '/ui/question_view.dart';
 
 
 
@@ -97,6 +98,8 @@ class RouteName {
 
   static const child_review = "/child_review";
 
+  static const question_view = "/question_view";
+
 
 }
 
@@ -107,7 +110,7 @@ var namedRoutes = <String, WidgetBuilder>{	// <String, WidgetBuilder> 생략가�
   RouteName.postureExam: (context) => PostureExampleScreen(),
   RouteName.start: (context) => StartScreen(),
 
-  RouteName.darkblueQ1: (context) => DarkBlue1Screen(),
+  // RouteName.darkblueQ1: (context) => DarkBlue1Screen(),
   RouteName.darkblueQ2: (context) => DarkBlue2Screen(),
   RouteName.darkblueQ3: (context) => DarkBlue3Screen(),
   RouteName.darkblueQ4: (context) => DarkBlue4Screen(),
@@ -150,5 +153,6 @@ var namedRoutes = <String, WidgetBuilder>{	// <String, WidgetBuilder> 생략가�
   RouteName.orangeQ2: (context) => Orange2Screen(),
 
   RouteName.child_review: (contexet) => ChildReview()
+  // RouteName.question_view: (contexet) => QuestionView(pageNumber: pageNumber)
 
 };

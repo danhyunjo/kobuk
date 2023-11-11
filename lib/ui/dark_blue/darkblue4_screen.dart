@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
 
+import '../../core/logic/shared_preference_manager.dart';
+
 class DarkBlue4Screen extends StatefulWidget {
   const DarkBlue4Screen({Key? key}) : super(key: key);
 
@@ -9,6 +11,21 @@ class DarkBlue4Screen extends StatefulWidget {
 }
 
 class _DarkBlue4ScreenState extends State<DarkBlue4Screen> {
+  Stopwatch _stopwatch = Stopwatch();
+  SharedPreferencesManager _prefsManager = SharedPreferencesManager();
+  int questionNumber = 4;
+
+  @override
+  void initState() {
+    super.initState();
+    _stopwatch.start();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +41,27 @@ class _DarkBlue4ScreenState extends State<DarkBlue4Screen> {
               children: [
                 TextButton(onPressed: (){
                   Navigator.pushNamed(context, RouteName.darkblueQ5);
+                  _stopwatch.stop();
+                  int elapsedTime = _stopwatch.elapsed.inSeconds;
+                  _prefsManager.saveAnswer(questionNumber, 1, elapsedTime);
+                  _prefsManager.printAll();
                 }, child: Image.asset('assets/images/dark_blue/q4/choice1.png',width: MediaQuery.of(context).size.height*0.2, height: MediaQuery.of(context).size.height*0.2,fit: BoxFit.cover)),
                 SizedBox(width: MediaQuery.of(context).size.width*0.05,),
                 TextButton(onPressed: (){
                   Navigator.pushNamed(context, RouteName.darkblueQ5);
+                  _stopwatch.stop();
+                  int elapsedTime = _stopwatch.elapsed.inSeconds;
+                  _prefsManager.saveAnswer(questionNumber, 0, elapsedTime);
+                  _prefsManager.printAll();
 
                 }, child: Image.asset('assets/images/dark_blue/q4/choice2.png',width: MediaQuery.of(context).size.height*0.2, height: MediaQuery.of(context).size.height*0.2,fit: BoxFit.cover)),
                 SizedBox(width: MediaQuery.of(context).size.width*0.05,),
                 TextButton(onPressed: (){
                   Navigator.pushNamed(context, RouteName.darkblueQ5);
+                  _stopwatch.stop();
+                  int elapsedTime = _stopwatch.elapsed.inSeconds;
+                  _prefsManager.saveAnswer(questionNumber, 0, elapsedTime);
+                  _prefsManager.printAll();
                 }, child: Image.asset('assets/images/dark_blue/q4/choice3.png',width: MediaQuery.of(context).size.height*0.2, height: MediaQuery.of(context).size.height*0.2,)),
 
               ],

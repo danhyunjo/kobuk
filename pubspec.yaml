@@ -39,6 +39,9 @@ dependencies:
   record: ^4.4.4
   logger: ^2.0.2+1
   stroke_text: ^0.0.2
+  firebase_core: ^2.21.0
+  firebase_database: ^10.3.3
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +74,7 @@ flutter:
      - assets/images/dark_blue/q3/
      - assets/images/dark_blue/q4/
      - assets/images/dark_blue/q5/
+     - assets/images/light_blue/q1_to_q9/
      - assets/images/light_blue/q10/
      - assets/images/light_blue/q11/
      - assets/images/light_blue/q12/
@@ -94,6 +98,7 @@ flutter:
      - assets/images/orange/q1/
      - assets/images/orange/q2/
      - assets/images/beige/child_review/
+     - assets/page_assets.json
      - assets/sounds/intro.mp3
      - assets/sounds/
 
