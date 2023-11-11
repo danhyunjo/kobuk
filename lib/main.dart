@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/intro/intro_screen.dart';
+import 'ui/preparation/intro_screen.dart';
 import 'core/route/route_name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebas'
