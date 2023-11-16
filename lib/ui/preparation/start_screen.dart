@@ -13,17 +13,17 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   final String audioPath = 'sounds/start.mp3';
-  final SoundPlayerLogic _logic = SoundPlayerLogic();
+  final SoundPlayerLogic _audioLogic = SoundPlayerLogic();
 
   @override
   void initState() {
     super.initState();
-    _logic.playSound(audioPath);
+    _audioLogic.playAudio(audioPath);
   }
 
   @override
   void dispose() {
-    _logic.dispose();
+    _audioLogic.dispose();
     super.dispose();
   }
 
@@ -49,6 +49,7 @@ class _StartScreenState extends State<StartScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => QuestionView(pageNumber: 1)));
+              _audioLogic.pauseSound();
             },
             child: Icon(Icons.arrow_forward))
       ],

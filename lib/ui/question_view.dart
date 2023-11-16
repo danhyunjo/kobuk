@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kobuk/core/logic/sound_player.dart';
 import 'package:kobuk/core/route/route_name.dart';
 import 'package:kobuk/ui/review/child_review_screen.dart';
 
-import '../../core/logic/shared_preference_manager.dart';
+import '../repo/shared_preference_manager.dart';
 
 class QuestionView extends StatefulWidget {
   final int pageNumber;
@@ -18,33 +20,96 @@ class QuestionView extends StatefulWidget {
 
 class _QuestionViewState extends State<QuestionView> {
   Stopwatch _stopwatch = Stopwatch();
+  SoundPlayerLogic _audioLogic = SoundPlayerLogic();
   SharedPreferencesManager _prefsManager = SharedPreferencesManager();
   var assets;
+
 
   Future<void> setAsset() async {
     String jsonString = await rootBundle.loadString('assets/page_assets.json');
     var data = jsonDecode(jsonString);
+    String audioPath = '';
+    int delayTime = 0;
+
     setState(() {
       assets = data['page' + widget.pageNumber.toString()];
     });
-    print('debug : {$assets}');
+
+    if (assets['audio'] != '') {
+      audioPath = assets['audio'];
+      await _audioLogic.playAudio(audioPath);
+    }
+
+    if (assets['second_audio'] != '') {
+      audioPath = assets['second_audio'];
+      delayTime = assets['delay_time'];
+      // print("debug : first delay $delayTime");
+      await _audioLogic.playDelayedSound(audioPath, delayTime);
+    }
+
+    if (assets['third_audio'] != '') {
+      audioPath = assets['third_audio'];
+      delayTime = assets['second_delay_time'];
+      // print("debug : second delay $delayTime");
+      await _audioLogic.playDelayedSound(audioPath, delayTime);
+    }
+
+    print('debug : $assets');
   }
 
+  Future<void> setPage19Asset() async {
+    if(widget.pageNumber == 19){
+      await _audioLogic.playDelayedSound('sounds/page24-2.mp3',500 );
+      await _audioLogic.playDelayedSound('sounds/page24-3.mp3',300 );
+      await _audioLogic.playDelayedSound('sounds/page24-4.mp3',300 );
+      await _audioLogic.playDelayedSound('sounds/page24-5.mp3',400 );
+      await _audioLogic.playDelayedSound('sounds/page24-6.mp3',300 );
+      await _audioLogic.playDelayedSound('sounds/page24-7.mp3',300 );
+    }
+  }
   @override
   void initState() {
     super.initState();
     setAsset();
     _stopwatch.start();
+    setPage19Asset();
+
+
+
   }
 
   @override
   void dispose() {
+    _audioLogic.dispose();
     super.dispose();
+  }
+
+  void saveAnswer(int selectedAnswer){
+    _stopwatch.stop();
+    _audioLogic.pauseSound();
+    if (assets['question_no'] != -1) {
+      int elapsedTime = _stopwatch.elapsed.inSeconds;
+      int isCorrect = assets['correct_answer'] == selectedAnswer ? 1 : 0;
+      _prefsManager.saveAnswer(
+          assets['question_no'], isCorrect, elapsedTime);
+    }
+  }
+
+  void saveRecord() {
+    _stopwatch.stop();
+    _audioLogic.pauseSound();
+    if (assets['question_no'] != -1) {
+      int isRecored = 1;
+      // int elapsedTime = _stopwatch.elapsed.inSeconds;
+      _prefsManager.saveRecord(
+          assets['question_no'], isRecored);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     if (assets != null) {
+      //문제1 선택지3(가로)
       if (assets['template_no'] == 1) {
         return Scaffold(
           body: Column(children: [
@@ -71,13 +136,7 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
-                      _stopwatch.stop();
-                      if (assets['question_no'] != -1) {
-                        int elapsedTime = _stopwatch.elapsed.inSeconds;
-                        _prefsManager.saveAnswer(
-                            assets['question_no'], 1, elapsedTime);
-                        _prefsManager.printAll();
-                      }
+                      saveAnswer(1);
                     },
                     child: Image.asset(
                       assets['choice1'],
@@ -93,13 +152,7 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
-                      _stopwatch.stop();
-                      if (assets['question_no'] != -1) {
-                        int elapsedTime = _stopwatch.elapsed.inSeconds;
-                        _prefsManager.saveAnswer(
-                            assets['question_no'], 0, elapsedTime);
-                        _prefsManager.printAll();
-                      }
+                      saveAnswer(2);
                     },
                     child: Image.asset(
                       assets['choice2'],
@@ -115,13 +168,8 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
-                      _stopwatch.stop();
-                      if (assets['question_no'] != -1) {
-                        int elapsedTime = _stopwatch.elapsed.inSeconds;
-                        _prefsManager.saveAnswer(
-                            assets['question_no'], 0, elapsedTime);
-                        _prefsManager.printAll();
-                      }
+                      saveAnswer(3);
+
                     },
                     child: Image.asset(
                       assets['choice3'],
@@ -131,7 +179,8 @@ class _QuestionViewState extends State<QuestionView> {
             )
           ]),
         );
-      } else if (assets['template_no'] == 2) {
+      } //문제1 선택지3(세로)
+      else if (assets['template_no'] == 2) {
         return Scaffold(
           body: Column(children: [
             Image.asset(assets['wave'],
@@ -162,13 +211,8 @@ class _QuestionViewState extends State<QuestionView> {
                               MaterialPageRoute(
                                   builder: (context) => QuestionView(
                                       pageNumber: widget.pageNumber + 1)));
-                          _stopwatch.stop();
-                          if (assets['question_no'] != -1) {
-                            int elapsedTime = _stopwatch.elapsed.inSeconds;
-                            _prefsManager.saveAnswer(
-                                assets['question_no'], 1, elapsedTime);
-                            _prefsManager.printAll();
-                          }
+                          saveAnswer(1);
+
                         },
                         child: Image.asset(
                           assets['choice1'],
@@ -188,13 +232,8 @@ class _QuestionViewState extends State<QuestionView> {
                               MaterialPageRoute(
                                   builder: (context) => QuestionView(
                                       pageNumber: widget.pageNumber + 1)));
-                          _stopwatch.stop();
-                          if (assets['question_no'] != -1) {
-                            int elapsedTime = _stopwatch.elapsed.inSeconds;
-                            _prefsManager.saveAnswer(
-                                assets['question_no'], 0, elapsedTime);
-                            _prefsManager.printAll();
-                          }
+                          saveAnswer(2);
+
                         },
                         child: Image.asset(
                           assets['choice2'],
@@ -211,13 +250,8 @@ class _QuestionViewState extends State<QuestionView> {
                               MaterialPageRoute(
                                   builder: (context) => QuestionView(
                                       pageNumber: widget.pageNumber + 1)));
-                          _stopwatch.stop();
-                          if (assets['question_no'] != -1) {
-                            int elapsedTime = _stopwatch.elapsed.inSeconds;
-                            _prefsManager.saveAnswer(
-                                assets['question_no'], 0, elapsedTime);
-                            _prefsManager.printAll();
-                          }
+                          saveAnswer(3);
+
                         },
                         child: Image.asset(
                           assets['choice2'],
@@ -230,7 +264,8 @@ class _QuestionViewState extends State<QuestionView> {
             )
           ]),
         );
-      } else if (assets['template_no'] == 3) {
+      } //문제1 선택지3(큰문제)
+      else if (assets['template_no'] == 3) {
         return Scaffold(
           body: Column(children: [
             Image.asset(assets['wave'],
@@ -257,13 +292,8 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
-                      _stopwatch.stop();
-                      if (assets['question_no'] != -1) {
-                        int elapsedTime = _stopwatch.elapsed.inSeconds;
-                        _prefsManager.saveAnswer(
-                            widget.pageNumber, 0, elapsedTime);
-                        _prefsManager.printAll();
-                      }
+                      saveAnswer(1);
+
                     },
                     child: Image.asset(
                       assets['choice1'],
@@ -280,13 +310,8 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
-                      _stopwatch.stop();
-                      if (assets['question_no'] != -1) {
-                        int elapsedTime = _stopwatch.elapsed.inSeconds;
-                        _prefsManager.saveAnswer(
-                            widget.pageNumber, 1, elapsedTime);
-                        _prefsManager.printAll();
-                      }
+                      saveAnswer(2);
+
                     },
                     child: Image.asset(
                       assets['choice2'],
@@ -303,13 +328,8 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
-                      _stopwatch.stop();
-                      if (assets['question_no'] != -1) {
-                        int elapsedTime = _stopwatch.elapsed.inSeconds;
-                        _prefsManager.saveAnswer(
-                            widget.pageNumber, 0, elapsedTime);
-                        _prefsManager.printAll();
-                      }
+                      saveAnswer(3);
+
                     },
                     child: Image.asset(
                       assets['choice3'],
@@ -320,7 +340,8 @@ class _QuestionViewState extends State<QuestionView> {
             )
           ]),
         );
-      } else if (assets['template_no'] == 4) {
+      } //선택지3
+      else if (assets['template_no'] == 4) {
         return Scaffold(
           body: Column(children: [
             Image.asset(assets['wave'],
@@ -338,6 +359,8 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
+                      saveAnswer(1);
+
                     },
                     child: Image.asset(
                       assets['choice1'],
@@ -354,6 +377,8 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
+                      saveAnswer(2);
+
                     },
                     child: Image.asset(
                       assets['choice2'],
@@ -370,6 +395,7 @@ class _QuestionViewState extends State<QuestionView> {
                           MaterialPageRoute(
                               builder: (context) => QuestionView(
                                   pageNumber: widget.pageNumber + 1)));
+                      saveAnswer(3);
                     },
                     child: Image.asset(
                       assets['choice3'],
@@ -380,7 +406,8 @@ class _QuestionViewState extends State<QuestionView> {
             )
           ]),
         );
-      } else if (assets['template_no'] == 5) {
+      } //녹음문제
+      else if (assets['template_no'] == 5) {
         return Scaffold(
           body: Column(
             children: [
@@ -422,12 +449,15 @@ class _QuestionViewState extends State<QuestionView> {
                         child: Image.asset('assets/images/record.png')),
                     TextButton(
                       onPressed: () {
-                        if(assets['question_no'] != 30)
+                        if(assets['question_no'] != 30) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => QuestionView(
-                                      pageNumber: widget.pageNumber + 1)));
+                                  builder: (context) =>
+                                      QuestionView(
+                                          pageNumber: widget.pageNumber + 1)));
+                          saveRecord();
+                        }
                         else {
                           Navigator.pushNamed(context, RouteName.child_review);
                         }
@@ -450,7 +480,8 @@ class _QuestionViewState extends State<QuestionView> {
             ],
           ),
         );
-      } else if (assets['template_no'] == 6) {
+      } //선택지4
+      else if (assets['template_no'] == 6) {
         return Scaffold(
           body: Column(children: [
             Image.asset(assets['wave']),
@@ -470,6 +501,8 @@ class _QuestionViewState extends State<QuestionView> {
                         MaterialPageRoute(
                             builder: (context) => QuestionView(
                                 pageNumber: widget.pageNumber + 1)));
+                    saveAnswer(1);
+
                   },
                 ),
                 TextButton(
@@ -482,6 +515,8 @@ class _QuestionViewState extends State<QuestionView> {
                         MaterialPageRoute(
                             builder: (context) => QuestionView(
                                 pageNumber: widget.pageNumber + 1)));
+                    saveAnswer(2);
+
                   },
                 ),
               ],
@@ -499,6 +534,8 @@ class _QuestionViewState extends State<QuestionView> {
                         MaterialPageRoute(
                             builder: (context) => QuestionView(
                                 pageNumber: widget.pageNumber + 1)));
+                    saveAnswer(3);
+
                   },
                 ),
                 TextButton(
@@ -511,13 +548,16 @@ class _QuestionViewState extends State<QuestionView> {
                         MaterialPageRoute(
                             builder: (context) => QuestionView(
                                 pageNumber: widget.pageNumber + 1)));
+                    saveAnswer(4);
+
                   },
                 ),
               ],
             )
           ]),
         );
-      } else if (assets['template_no'] == 7) {
+      } //문제1 선택지3(확성기 아이콘 포함)
+      else if (assets['template_no'] == 7) {
         return Scaffold(
           body: Column(children: [
             Image.asset(assets['wave'],
@@ -542,6 +582,8 @@ class _QuestionViewState extends State<QuestionView> {
                               MaterialPageRoute(
                                   builder: (context) => QuestionView(
                                       pageNumber: widget.pageNumber + 1)));
+                          saveAnswer(1);
+
                         },
                         child: Image.asset(assets['choice1'],
                             width: MediaQuery.of(context).size.height * 0.2,
@@ -565,6 +607,8 @@ class _QuestionViewState extends State<QuestionView> {
                               MaterialPageRoute(
                                   builder: (context) => QuestionView(
                                       pageNumber: widget.pageNumber + 1)));
+                          saveAnswer(2);
+
                         },
                         child: Image.asset(assets['choice2'],
                             width: MediaQuery.of(context).size.height * 0.2,
@@ -588,6 +632,8 @@ class _QuestionViewState extends State<QuestionView> {
                               MaterialPageRoute(
                                   builder: (context) => QuestionView(
                                       pageNumber: widget.pageNumber + 1)));
+                          saveAnswer(3);
+
                         },
                         child: Image.asset(
                           assets['choice3'],
@@ -606,7 +652,23 @@ class _QuestionViewState extends State<QuestionView> {
         );
       } else {
         print('debug : tempalte_no 불일치');
-        return Container(
+        return Scaffold(
+          body:Container(
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.25,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.25,
+              child: CircularProgressIndicator())
+        );
+      }
+    } else {
+      print('debug : assets 없음');
+      return Scaffold(
+        body: Container(
             width: MediaQuery
                 .of(context)
                 .size
@@ -615,20 +677,8 @@ class _QuestionViewState extends State<QuestionView> {
                 .of(context)
                 .size
                 .height * 0.25,
-            child: CircularProgressIndicator());
-      }
-    } else {
-      print('debug : assets 없음');
-      return Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .height * 0.25,
-          height: MediaQuery
-              .of(context)
-              .size
-              .height * 0.25,
-          child: CircularProgressIndicator());
+            child: CircularProgressIndicator()),
+      );
     }
   }
 }

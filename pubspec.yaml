@@ -42,6 +42,7 @@ dependencies:
   firebase_core: ^2.21.0
   firebase_database: ^10.3.3
   shared_preferences: ^2.2.2
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
   assets:
      - assets/images/
      - assets/images/wave/
+     - assets/images/preparation/subject_info/
      - assets/images/dark_blue/q1/
      - assets/images/dark_blue/q2/
      - assets/images/dark_blue/q3/
@@ -98,6 +100,9 @@ flutter:
      - assets/images/orange/q1/
      - assets/images/orange/q2/
      - assets/images/beige/child_review/
+     - assets/images/beige/teacher_review/
+     - assets/images/beige/remark/
+     - assets/images/beige/save/
      - assets/page_assets.json
      - assets/sounds/intro.mp3
      - assets/sounds/

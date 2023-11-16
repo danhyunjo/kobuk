@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stroke_text/stroke_text.dart';
-import '../../core/logic/shared_preference_manager.dart';
+import '../../repo/shared_preference_manager.dart';
 import '../../core/route/route_name.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../core/logic/sound_player.dart';
@@ -15,18 +15,17 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   final String audioPath = 'sounds/intro.mp3';
-  final SoundPlayerLogic _logic = SoundPlayerLogic();
-  SharedPreferencesManager _prefsManager = SharedPreferencesManager();
+  final SoundPlayerLogic _audioLogic = SoundPlayerLogic();
 
   @override
   void initState() {
     super.initState();
-    _logic.playSound(audioPath);
+    _audioLogic.playAudio(audioPath);
   }
 
   @override
   void dispose() {
-    _logic.dispose();
+    _audioLogic.dispose();
     super.dispose();
   }
 
@@ -67,8 +66,7 @@ class _IntroScreenState extends State<IntroScreen> {
             TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, RouteName.fullExam);
-                  _prefsManager.resetAll();
-                  _prefsManager.printAll();
+                  _audioLogic.pauseSound();
                 },
                 child: Image.asset(
                   'assets/images/arrow.png',

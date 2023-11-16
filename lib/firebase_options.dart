@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '441482129781',
     projectId: 'kobuk-dd149',
     authDomain: 'kobuk-dd149.firebaseapp.com',
+    databaseURL: 'https://kobuk-dd149-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'kobuk-dd149.appspot.com',
     measurementId: 'G-HTFLNX1KCK',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:441482129781:android:3d19837828064380db633c',
     messagingSenderId: '441482129781',
     projectId: 'kobuk-dd149',
+    databaseURL: 'https://kobuk-dd149-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'kobuk-dd149.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:441482129781:ios:830f087416ab8019db633c',
     messagingSenderId: '441482129781',
     projectId: 'kobuk-dd149',
+    databaseURL: 'https://kobuk-dd149-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'kobuk-dd149.appspot.com',
     iosBundleId: 'com.example.kobuk',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:441482129781:ios:85878c493fb98fbcdb633c',
     messagingSenderId: '441482129781',
     projectId: 'kobuk-dd149',
+    databaseURL: 'https://kobuk-dd149-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'kobuk-dd149.appspot.com',
     iosBundleId: 'com.example.kobuk.RunnerTests',
   );

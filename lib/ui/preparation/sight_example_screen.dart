@@ -12,17 +12,17 @@ class SightExampleScreen extends StatefulWidget {
 
 class _SightExampleScreenState extends State<SightExampleScreen> {
   final String audioPath = 'sounds/sight_exam.mp3';
-  final SoundPlayerLogic _logic = SoundPlayerLogic();
+  final SoundPlayerLogic _audioLogic = SoundPlayerLogic();
 
   @override
   void initState() {
     super.initState();
-    _logic.playSound(audioPath);
+    _audioLogic.playAudio(audioPath);
   }
 
   @override
   void dispose(){
-    _logic.dispose();
+    _audioLogic.dispose();
     super.dispose();
   }
 
@@ -37,6 +37,7 @@ class _SightExampleScreenState extends State<SightExampleScreen> {
         TextButton(
             onPressed: () {
               Navigator.pushNamed(context, RouteName.start);
+              _audioLogic.pauseSound();
             },
             child: Image.asset(
               'assets/images/arrow.png',
