@@ -37,12 +37,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   audioplayers: ^5.2.0
   record: ^4.4.4
-  logger: ^2.0.2+1
+  logger: ^1.0.0
   stroke_text: ^0.0.2
   firebase_core: ^2.21.0
   firebase_database: ^10.3.3
   shared_preferences: ^2.2.2
   intl: ^0.18.1
+  path_provider: ^2.1.1
+  flutter_sound: ^9.2.13
+  permission_handler: ^11.0.1
+  firebase_storage: ^11.5.1
 
 dev_dependencies:
   flutter_test:

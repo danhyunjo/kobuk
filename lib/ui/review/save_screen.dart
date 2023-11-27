@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
 import 'package:intl/intl.dart';
+import '../../repo/local_storage_manager.dart';
 import '../../repo/shared_preference_manager.dart';
 import '../../repo/realtime_database_manager.dart';
 
@@ -14,27 +15,55 @@ class SaveScreen extends StatefulWidget {
 class _SaveScreenState extends State<SaveScreen> {
   SharedPreferencesManager _prefsManager = SharedPreferencesManager();
   DatabaseManager _dbManager = DatabaseManager();
+  LocalStorageManager _localManager = LocalStorageManager();
 
-  String getToday() {
-    DateTime now = DateTime.now();
-    DateFormat formatter = DateFormat('yyyy-MM-dd-HH-mm');
-    print("debug ${formatter.format(now)}");
-    return formatter.format(now);
-  }
+
 
   Future<void> writeDB() async{
     String schoolCode = await _prefsManager.getSchoolCode();
     String classId = await _prefsManager.getClassId();
     String studentId = await _prefsManager.getStudentId();
-    String currentDate = getToday();
     Map<String,dynamic> data = await _prefsManager.getAll();
 
-    _dbManager.writeResult(schoolCode, classId, studentId, currentDate, data);
-    _prefsManager.resetAll();
+    String error = await _dbManager.writeResult(schoolCode, classId, studentId, data);
+    if (error == "" && data != null){
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('cloud 저장 성공')));
+    } else if (error != ""){
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('cloud 저장 실패 : $error')));
+    } else if (data == null){
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('cloud 저장 실패 : 저장할 데이터가 존재하지 않습니다')));
+    }
   }
 
-  Future<void> wrtieLocal() async{
+  Future<void> writeLocal() async{
+    await _localManager.checkAndRequestPermissions();
+
+    String schoolCode = await _prefsManager.getSchoolCode();
+    String classId = await _prefsManager.getClassId();
+    String studentId = await _prefsManager.getStudentId();
+
     Map<String,dynamic> data = await _prefsManager.getAll();
+
+    String error = await _localManager.writeJsonFile(data, schoolCode, classId, studentId);
+
+    if (error == ""){
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('local 저장 성공')));
+    } else if (error != ""){
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('local 저장 실패 : $error')));
+    } else if (data == null){
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('local 저장 실패 : 저장할 데이터가 존재하지 않습니다')));
+    }
+
+  }
+
+  Future<void> resetAll() async{
+    await _prefsManager.resetAll();
 
   }
 
@@ -59,7 +88,9 @@ class _SaveScreenState extends State<SaveScreen> {
             width: MediaQuery.of(context).size.width * 0.4,
             height: MediaQuery.of(context).size.height * 0.35),
         onPressed: () async {
+          await writeLocal();
           await writeDB();
+          await resetAll();
         },
       ),
       SizedBox(

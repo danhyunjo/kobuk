@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
 
+import '../../repo/shared_preference_manager.dart';
+
 class TeacherReviewScreen extends StatefulWidget {
   const TeacherReviewScreen({Key? key}) : super(key: key);
 
@@ -9,6 +11,8 @@ class TeacherReviewScreen extends StatefulWidget {
 }
 
 class _TeacherReviewScreenState extends State<TeacherReviewScreen> {
+  SharedPreferencesManager _prefsManager = SharedPreferencesManager();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +37,7 @@ class _TeacherReviewScreenState extends State<TeacherReviewScreen> {
                     height: MediaQuery.of(context).size.height * 0.35),
                 onPressed: () {
                   Navigator.pushNamed(context, RouteName.remark);
+                  _prefsManager.saveTeacherReview(0);
                 },
               ),
               SizedBox(
@@ -45,6 +50,7 @@ class _TeacherReviewScreenState extends State<TeacherReviewScreen> {
                     height: MediaQuery.of(context).size.height * 0.35),
                 onPressed: () {
                   Navigator.pushNamed(context, RouteName.remark);
+                  _prefsManager.saveTeacherReview(1);
                 },
               )
             ],

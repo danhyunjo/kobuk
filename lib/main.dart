@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kobuk/ui/preparation/subject_info_screen.dart';
 import 'ui/preparation/intro_screen.dart';
 import 'core/route/route_name.dart';
@@ -20,6 +21,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]); //한쪽 방향 고정
+
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]); //가로 좌우로 고정
+
+
+
     return MaterialApp(
       title: 'KOBUKI',
       theme: ThemeData(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
 
-import '../../core/logic/sound_player.dart';
+import '../../repo/audio_player.dart';
 import '../question_view.dart';
 
 class StartScreen extends StatefulWidget {
@@ -13,12 +13,12 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   final String audioPath = 'sounds/start.mp3';
-  final SoundPlayerLogic _audioLogic = SoundPlayerLogic();
+  final SoundPlayer _audioLogic = SoundPlayer();
 
   @override
   void initState() {
     super.initState();
-    _audioLogic.playAudio(audioPath);
+    _audioLogic.playSound(audioPath);
   }
 
   @override
@@ -34,12 +34,18 @@ class _StartScreenState extends State<StartScreen> {
       children: [
         Stack(
           children: [
-            Positioned(
-              child: Container(
+          Container(
                 child: Image.asset('assets/images/light_blue_box.png'),
               ),
-            ),
-            Positioned(child: Container(child: Text('준비되었나요?\n누르세요.')))
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset('assets/images/start.png', width: MediaQuery.of(context).size.width*0.3,)
+                ),
+              ),
           ],
         ),
         Image.asset('assets/images/wave/light_blue_wave.png'),

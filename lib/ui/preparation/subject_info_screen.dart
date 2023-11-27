@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kobuk/core/route/route_name.dart';
 
 import '../../repo/shared_preference_manager.dart';
@@ -18,17 +19,24 @@ class _SubjectInfoScreenState extends State<SubjectInfoScreen> {
   TextEditingController _classIdController = TextEditingController();
   TextEditingController _studentIdController = TextEditingController();
 
+  String getToday() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd-HH-mm');
+    print("debug ${formatter.format(now)}");
+    return formatter.format(now);
+  }
+
   Future<void> writeInterruptedResult() async{
     String schoolCode = await _prefsManager.getSchoolCode();
     String classId = await _prefsManager.getClassId();
     String studentId = await _prefsManager.getStudentId();
-    String currentDate = DateTime.now().toString();
+
 
     print("debug:{$schoolCode}, {$classId}, {$studentId}");
     if(schoolCode != '' && classId != '' && studentId != ''){
       print("debug : 중단된 테스트 있음");
       Map<String,dynamic> data = await _prefsManager.getAll();
-      _dbManager.writeResult(schoolCode, classId, studentId, currentDate, data);
+      _dbManager.writeResult(schoolCode, classId, studentId, data);
       _prefsManager.resetAll();
     } else {
       print("debug : 중단된 테스트 없음");
@@ -98,14 +106,16 @@ class _SubjectInfoScreenState extends State<SubjectInfoScreen> {
                 ElevatedButton(onPressed: () async {
                   Navigator.pushNamed(context, RouteName.intro);
                   await writeInterruptedResult();
-                  _prefsManager.saveSubjectInfo(_schoolCodeController.text, _classIdController.text, _studentIdController.text);
+                  String testStartTime = getToday();
+                  _prefsManager.saveSubjectInfo(_schoolCodeController.text, _classIdController.text, _studentIdController.text, 'male', testStartTime);
         
                 }, child: Image.asset('assets/images/preparation/subject_info/boy.png', height: MediaQuery.of(context).size.height*0.25)),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
                 ElevatedButton(onPressed: () async{
                   Navigator.pushNamed(context, RouteName.intro);
                   await writeInterruptedResult();
-                  _prefsManager.saveSubjectInfo(_schoolCodeController.text, _classIdController.text, _studentIdController.text);
+                  String testStartTime = getToday();
+                  _prefsManager.saveSubjectInfo(_schoolCodeController.text, _classIdController.text, _studentIdController.text, 'female', testStartTime);
         
                 }, child: Image.asset('assets/images/preparation/subject_info/girl.png', height: MediaQuery.of(context).size.height*0.25,))
               ],

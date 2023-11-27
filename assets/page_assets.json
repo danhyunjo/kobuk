@@ -12,7 +12,9 @@
     "second_audio": "",
     "third_audio": "",
     "delay_time": 0,
-    "second_delay_time": 0
+    "second_delay_time": 0,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page2": {
     "wave": "assets/images/wave/dark_blue_wave.png",
@@ -27,7 +29,9 @@
     "second_audio": "",
     "third_audio": "",
     "delay_time": 0,
-    "second_delay_time": 0
+    "second_delay_time": 0,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page3": {
     "wave": "assets/images/wave/dark_blue_wave.png",
@@ -42,7 +46,9 @@
     "second_audio": "",
     "third_audio": "",
     "delay_time": 0,
-    "second_delay_time": 0
+    "second_delay_time": 0,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page4": {
     "wave": "assets/images/wave/dark_blue_wave.png",
@@ -57,7 +63,9 @@
     "second_audio": "",
     "third_audio": "",
     "delay_time": 0,
-    "second_delay_time": 0
+    "second_delay_time": 0,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page5": {
     "wave": "assets/images/wave/dark_blue_wave.png",
@@ -72,7 +80,9 @@
     "second_audio": "sounds/page10-2.mp3",
     "third_audio": "",
     "delay_time": 600,
-    "second_delay_time": 0
+    "second_delay_time": 0,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page6": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -84,7 +94,9 @@
     "third_audio": "sounds/page11-3.mp3",
     "delay_time": 100,
     "second_delay_time": 500,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page7": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -96,7 +108,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page8": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -108,7 +122,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page9": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -120,7 +136,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page10": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -132,7 +150,9 @@
     "third_audio": "sounds/page15-3.mp3",
     "delay_time": 100,
     "second_delay_time": 500,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page11": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -144,7 +164,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page12": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -156,7 +178,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page13": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -168,7 +192,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page14": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -180,7 +206,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page15": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -195,7 +223,9 @@
     "third_audio": "sounds/page20-3.mp3",
     "delay_time": 1000,
     "second_delay_time": 500,
-    "correct_answer": 1
+    "correct_answer": 1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page16": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -210,7 +240,9 @@
     "third_audio": "sounds/page21-3.mp3",
     "delay_time": 1000,
     "second_delay_time": 500,
-    "correct_answer": 3
+    "correct_answer": 3,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page17": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -225,7 +257,9 @@
     "third_audio": "sounds/page22-3.mp3",
     "delay_time": 1000,
     "second_delay_time": 700,
-    "correct_answer": 4
+    "correct_answer": 4,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page18": {
     "wave": "assets/images/wave/light_blue_wave.png",
@@ -240,7 +274,9 @@
     "third_audio": "sounds/page23-3.mp3",
     "delay_time": 1000,
     "second_delay_time": 500,
-    "correct_answer": 3
+    "correct_answer": 3,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page19": {
     "wave": "assets/images/wave/green_wave.png",
@@ -251,11 +287,13 @@
     "template_no": 7,
     "question_no": 17,
     "audio": "sounds/page24.mp3",
-    "second_audio": "",
-    "third_audio": "",
-    "delay_time": 0,
-    "second_delay_time": 0,
-    "correct_answer": 2
+    "second_audio": "sounds/page24-2.mp3",
+    "third_audio": "sounds/page24-3.mp3",
+    "delay_time": 500,
+    "second_delay_time": 300,
+    "correct_answer": 2,
+    "fourth_audio": "sounds/page24-4.mp3",
+    "third_delay_time": 300
   },
   "page20": {
     "wave": "assets/images/wave/green_wave.png",
@@ -270,7 +308,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page21": {
     "wave": "assets/images/wave/green_wave.png",
@@ -285,7 +325,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page22": {
     "wave": "assets/images/wave/green_wave.png",
@@ -300,7 +342,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page23": {
     "wave": "assets/images/wave/green_wave.png",
@@ -315,7 +359,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page24": {
     "wave": "assets/images/wave/green_wave.png",
@@ -330,7 +376,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page25": {
     "wave": "assets/images/wave/green_wave.png",
@@ -345,7 +393,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page26": {
     "wave": "assets/images/wave/green_wave.png",
@@ -360,7 +410,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page27": {
     "wave": "assets/images/wave/green_wave.png",
@@ -375,7 +427,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page28": {
     "wave": "assets/images/wave/violet_wave.png",
@@ -390,7 +444,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 1
+    "correct_answer": 1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page29": {
     "wave": "assets/images/wave/violet_wave.png",
@@ -405,7 +461,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page30": {
     "wave": "assets/images/wave/violet_wave.png",
@@ -420,7 +478,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page31": {
     "wave": "assets/images/wave/pink_wave.png",
@@ -435,7 +495,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page32": {
     "wave": "assets/images/wave/pink_wave.png",
@@ -450,7 +512,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 3
+    "correct_answer": 3,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page33": {
     "wave": "assets/images/wave/pink_wave.png",
@@ -465,7 +529,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 2
+    "correct_answer": 2,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page34": {
     "wave": "assets/images/wave/pink_wave.png",
@@ -480,7 +546,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": 3
+    "correct_answer": 3,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page35": {
     "wave": "assets/images/wave/orange_wave.png",
@@ -492,7 +560,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   },
   "page36": {
     "wave": "assets/images/wave/orange_wave.png",
@@ -504,7 +574,9 @@
     "third_audio": "",
     "delay_time": 0,
     "second_delay_time": 0,
-    "correct_answer": -1
+    "correct_answer": -1,
+    "fourth_audio": "",
+    "third_delay_time": 0
   }
 }
 

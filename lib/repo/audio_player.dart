@@ -3,48 +3,36 @@ import 'dart:async';
 import 'package:logger/logger.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-class SoundPlayerLogic {
+class SoundPlayer {
   final audioPlayer = AudioPlayer();
   Completer<void>? completion;
 
-  Future<void> playAudio(String audioPath) async {
+
+
+  Future<void> listenAudioCompletion() async{
     completion = Completer<void>();
 
-    audioPlayer.onPlayerComplete.listen((event) {
+    audioPlayer.onPlayerComplete.listen((event) async{
+      // await audioPlayer.play(AssetSource(audioPath));
       completion?.complete();
       completion = null;
     });
 
-    await audioPlayer.play(AssetSource(audioPath));
-
     return completion!.future;
+}
+
+Future<void> playSound(String audioPath) async {
+    await audioPlayer.play(AssetSource(audioPath));
   }
-
-
-  // Future<void> playSound(String audioPath) async{
-  //   try {
-  //     // final player = AudioPlayer();
-  //     await audioPlayer.play(AssetSource(audioPath));
-  //   } catch (error) {
-  //     Logger().e(error.toString());
-  //     throw Exception(error);
-  //   }
-  // }
-
 
   Future<void> playDelayedSound(String audioPath, int delayTime) async {
     await Future.delayed(Duration(milliseconds: delayTime), () async {
       print("debug : beforeplay $audioPath");
-      await playAudio(audioPath);
+      // await listenAudioCompletion();
+      await playSound(audioPath);
       print("debug : afterplay $audioPath");
     });
-  // }
-    // });
-
-
   }
-
-
 
   Future<void> pauseSound() async {
     try{
@@ -54,6 +42,7 @@ class SoundPlayerLogic {
       throw Exception(error);
     }
   }
+
   void dispose() {
     audioPlayer.dispose();
   }

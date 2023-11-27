@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/logic/sound_player.dart';
+import '../../repo/audio_player.dart';
 import '../../core/route/route_name.dart';
 
 class PostureExampleScreen extends StatefulWidget {
@@ -12,16 +12,16 @@ class PostureExampleScreen extends StatefulWidget {
 
 class _PostureExampleScreenState extends State<PostureExampleScreen> {
   final String audioPath = 'sounds/posture_exam.mp3';
-  final SoundPlayerLogic _audioLogic = SoundPlayerLogic();
+  final SoundPlayer _audioLogic = SoundPlayer();
 
   @override
   void initState() {
     super.initState();
-    _audioLogic.playAudio(audioPath);
+    _audioLogic.playSound(audioPath);
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _audioLogic.dispose();
     super.dispose();
   }
@@ -29,21 +29,37 @@ class _PostureExampleScreenState extends State<PostureExampleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
+        body:
         Column(
           children: [
             Image.asset('assets/images/wave/light_blue_wave.png',),
             const SizedBox(height: 30,),
-            Image.asset('assets/images/posture_exam.png', width: MediaQuery.of(context).size.width * 0.9, height: MediaQuery.of(context).size.height * 0.7),
-            TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteName.sightExam);
-                  _audioLogic.pauseSound();
-                },
-                child: Image.asset(
-                  'assets/images/arrow.png',
-                  width: MediaQuery.of(context).size.width*0.1,
-                )),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+                  Image.asset(
+                      'assets/images/posture_exam.png', width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9, height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.7),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, RouteName.sightExam);
+                        _audioLogic.pauseSound();
+                      },
+                      child: Image.asset(
+                        'assets/images/arrow.png',
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.1,
+                      )),
+                ])
+
           ],
         )
     );

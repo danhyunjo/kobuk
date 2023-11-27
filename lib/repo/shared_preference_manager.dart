@@ -10,12 +10,14 @@ class SharedPreferencesManager {
   }
 
   Future<void> saveSubjectInfo(String schoolCode, String classId,
-      String studentId) async {
+      String studentId, String gender, String testStartTime) async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('schoolCode', schoolCode);
     await prefs.setString('classId', classId);
     await prefs.setString('studentId', studentId);
+    await prefs.setString('gender', gender);
+    await prefs.setString('test_start_time', testStartTime);
   }
 
   Future<void> saveAnswer(int questionNumber, int answer, int elapsedTime) async {
@@ -42,6 +44,61 @@ class SharedPreferencesManager {
     await prefs.setInt('${addLeadingZero(questionNumber)}\_is_recorded', isRecorded);
     // await prefs.setInt('$questionNumber\_elapse_time', elapsedTime);
     await prefs.setInt('${addLeadingZero(questionNumber)}\_error', 0);
+
+    final keys = prefs.getKeys();
+
+    final prefsMap = Map<String, dynamic>();
+    for (String key in keys) {
+      prefsMap[key] = prefs.get(key);
+    }
+    print(prefs);
+    print(prefsMap);
+
+  }
+
+  Future<void> saveChildReview(int childReview) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setInt('child_review', childReview);
+
+
+    final keys = prefs.getKeys();
+
+    final prefsMap = Map<String, dynamic>();
+    for (String key in keys) {
+      prefsMap[key] = prefs.get(key);
+    }
+    print(prefs);
+    print(prefsMap);
+
+  }
+
+  Future<void> saveTeacherReview(int teacherReview) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setInt('teacher_review', teacherReview);
+
+
+    final keys = prefs.getKeys();
+
+    final prefsMap = Map<String, dynamic>();
+    for (String key in keys) {
+      prefsMap[key] = prefs.get(key);
+    }
+    print(prefs);
+    print(prefsMap);
+
+  }
+
+  Future<void> saveRemark(String remark, String? etc) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('remark', remark);
+
+    if (etc != null){
+      await prefs.setString('etc', etc);
+    }
+
 
     final keys = prefs.getKeys();
 
@@ -104,6 +161,10 @@ class SharedPreferencesManager {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('studentId') ?? '';
   }
+  Future<String> getTestStartTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('test_start_time') ?? '';
+  }
 
   Future<int> getAnswer(int questionNumber) async {
     final prefs = await SharedPreferences.getInstance();
@@ -114,10 +175,6 @@ class SharedPreferencesManager {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt('$pageNumber\_elapse_time') ?? 0;
 
-    Future<void> exportToCSV() async {
-      // Create and export the CSV file with data from SharedPreferences.
-      // You can use the csv package for this.
-      // For Firebase Realtime Database, see step 6 in the previous response.
     }
   }
-}
+

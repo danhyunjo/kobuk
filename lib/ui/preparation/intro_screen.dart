@@ -4,7 +4,7 @@ import 'package:stroke_text/stroke_text.dart';
 import '../../repo/shared_preference_manager.dart';
 import '../../core/route/route_name.dart';
 import 'package:audioplayers/audioplayers.dart';
-import '../../core/logic/sound_player.dart';
+import '../../repo/audio_player.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -15,12 +15,12 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   final String audioPath = 'sounds/intro.mp3';
-  final SoundPlayerLogic _audioLogic = SoundPlayerLogic();
+  final SoundPlayer _audioLogic = SoundPlayer();
 
   @override
   void initState() {
     super.initState();
-    _audioLogic.playAudio(audioPath);
+    _audioLogic.playSound(audioPath);
   }
 
   @override
@@ -78,7 +78,7 @@ class _IntroScreenState extends State<IntroScreen> {
           children: [
             Column(
               children: [
-                Image.asset('assets/images/cheongjuuniv.jpg'),
+                Image.asset('assets/images/cheongjuuniv.png'),
                 SizedBox(height: 20)
               ],
             ),
