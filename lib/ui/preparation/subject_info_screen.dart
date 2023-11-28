@@ -33,10 +33,13 @@ class _SubjectInfoScreenState extends State<SubjectInfoScreen> {
 
 
     print("debug:{$schoolCode}, {$classId}, {$studentId}");
-    if(schoolCode != '' && classId != '' && studentId != ''){
+    if(schoolCode != '' || classId != '' || studentId != ''){
       print("debug : 중단된 테스트 있음");
-      Map<String,dynamic> data = await _prefsManager.getAll();
-      _dbManager.writeResult(schoolCode, classId, studentId, data);
+      if (schoolCode != '' && classId != '' && studentId != '') {
+        _prefsManager.saveError(1);
+        Map<String, dynamic> data = await _prefsManager.getAll();
+        _dbManager.writeResult(schoolCode, classId, studentId, data);
+      }
       _prefsManager.resetAll();
     } else {
       print("debug : 중단된 테스트 없음");

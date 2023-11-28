@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:kobuk/domain/asset_setting.dart';
 import 'package:kobuk/core/route/route_name.dart';
 import 'package:async/async.dart';
-
+import 'package:video_player/video_player.dart';
 
 class QuestionView extends StatefulWidget {
   final int pageNumber;
@@ -21,7 +21,8 @@ class _QuestionViewState extends State<QuestionView> {
       StreamController<bool>();
   final StreamController<bool> _recordingQuestionController =
       StreamController<bool>();
-  final StreamController<bool> _animationController = StreamController<bool>();
+  late VideoPlayerController _videoPlayerController;
+  late Timer t;
 
 
   AudioSetting _assetSetting = AudioSetting();
@@ -29,42 +30,47 @@ class _QuestionViewState extends State<QuestionView> {
   bool canSwitchScreen = false;
   Completer<void> completer = Completer<void>();
 
-  void saveAnswer(int selectedAnswer) {
-    _assetSetting.saveChoiceAnswer(
-        assets['question_no'], assets['correct_answer'], selectedAnswer);
 
-    print("-------------------------------사용자가 넘김(버튼 클릭으로)-------------------------------");
+  void saveAnswer(int selectedAnswer) {
+    print("debug : correct_answer = ${assets['correct_answer']}, selectedAnswer = $selectedAnswer");
+    _assetSetting.saveChoiceAnswer(assets['question_no'], assets['correct_answer'], selectedAnswer);
+
+    print(
+        "-------------------------------사용자가 넘김(버튼 클릭으로)-------------------------------");
 
     completer.complete();
+    t.cancel();
 
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) =>
                 QuestionView(pageNumber: widget.pageNumber + 1)));
   }
 
-  void saveRecord() {
+  Future<void> saveRecord() async {
     completer.complete();
 
     if (widget.pageNumber != 36) {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) =>
                   QuestionView(pageNumber: widget.pageNumber + 1)));
+      int isRecorded = await _assetSetting.stopRecording(assets['question_no']);
 
-      _assetSetting.saveRecordAnswer(assets['question_no']);
-      _assetSetting.stopRecording(assets['question_no']);
+      _assetSetting.saveRecordAnswer(assets['question_no'], isRecorded);
     } else {
       Navigator.pushNamed(context, RouteName.child_review);
 
-      _assetSetting.saveRecordAnswer(assets['question_no']);
-      _assetSetting.stopRecording(assets['question_no']);
+      int isRecorded = await _assetSetting.stopRecording(assets['question_no']);
+
+      _assetSetting.saveRecordAnswer(assets['question_no'], isRecorded);
     }
   }
 
   Future<void> setAsset() async {
+    List<int> animationVideos = [20, 22, 24, 26, 28,30];
     String jsonString = await rootBundle.loadString('assets/page_assets.json');
     var data = jsonDecode(jsonString);
 
@@ -74,29 +80,76 @@ class _QuestionViewState extends State<QuestionView> {
     print('debug : assets $assets');
 
     print('debug : call setAudio');
-    setAudio();
+    if (animationVideos.contains(widget.pageNumber)) {
+      setVideo(assets['video_path']);
+    } else {
+      setAudio();
+    }
+  }
+
+  void setVideo(String videoPath) {
+    _videoPlayerController = VideoPlayerController.asset(
+      videoPath,
+    )..initialize().then((_) {
+        print("Video initialization successful");
+        setState(() {});
+        _videoPlayerController.play();
+      });
+
+    _videoPlayerController.addListener(() {
+      if (_videoPlayerController.value.position ==
+          _videoPlayerController.value.duration) {
+        // Video playback complete, navigate to the next screen
+        _canSwitchScreenController.add(true);
+
+        Timer(Duration(seconds: assets['max_elapsed_time']), () {
+          print("--------------------타임아웃-----------------------");
+          if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
+            saveAnswer(-1);
+          } else if (assets['question_no'] != -1 &&
+              assets['correct_answer'] == -1) {
+            saveRecord();
+          } else if (assets['question_no'] == -1) {
+            completer.complete();
+
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        QuestionView(pageNumber: widget.pageNumber + 1)));
+          }
+          if (!completer.isCompleted) {
+            print(
+                "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
+
+            completer.complete();
+          }
+        });
+      }
+    });
+
+
   }
 
   Future<void> setAudio() async {
-    List<int> record_questions = [7, 8, 9, 11, 12, 13, 14, 35, 36];
+    List<int> recordQuestions = [7, 8, 9, 11, 12, 13, 14, 35, 36];
 
     // Set a timeout duration (e.g., 5 seconds)
 
     if (assets['audio'] != '' &&
         assets['second_audio'] == '' &&
-        assets['third_audio'] == ''&&
+        assets['third_audio'] == '' &&
         assets['fourth_audio'] == '') {
       await _assetSetting.playSound(assets['audio']);
 
       await _assetSetting.listenSoundCompletion().then((_) async {
         print("debug : 첫번째 오디오 종료 리스너");
 
-          _canSwitchScreenController.add(true);
-          _recordingQuestionController.add(true);
-
+        _canSwitchScreenController.add(true);
+        _recordingQuestionController.add(true);
       });
 
-      Timer(Duration(seconds: 3), () {
+      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
         print("--------------------타임아웃-----------------------");
         if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
           saveAnswer(-1);
@@ -106,7 +159,7 @@ class _QuestionViewState extends State<QuestionView> {
         } else if (assets['question_no'] == -1) {
           completer.complete();
 
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) =>
@@ -119,9 +172,10 @@ class _QuestionViewState extends State<QuestionView> {
           completer.complete();
         }
       });
+
     } else if (assets['audio'] != '' &&
         assets['second_audio'] != '' &&
-        assets['third_audio'] == ''&&
+        assets['third_audio'] == '' &&
         assets['fourth_audio'] == '') {
       await _assetSetting.playSound(assets['audio']);
       await _assetSetting.listenSoundCompletion();
@@ -134,7 +188,7 @@ class _QuestionViewState extends State<QuestionView> {
         _recordingQuestionController.add(true);
       });
 
-      Timer(Duration(seconds: 10), () {
+      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
         print("---------------------타임아웃-------------------");
         if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
           saveAnswer(-1);
@@ -144,53 +198,7 @@ class _QuestionViewState extends State<QuestionView> {
         } else if (assets['question_no'] == -1) {
           completer.complete();
 
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuestionView(pageNumber: widget.pageNumber + 1)));
-
-
-        }
-        if (!completer.isCompleted) {
-          print(
-              "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
-
-          completer.complete();
-        }
-      });
-    } else if (assets['audio'] != '' &&
-        assets['second_audio'] != '' &&
-        assets['third_audio'] != ''&&
-        assets['fourth_audio'] == '') {
-      await _assetSetting.playSound(assets['audio']);
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['second_audio'], assets['delay_time']);
-      if(assets['question_no'] == -1){
-        _recordingQuestionController.add(true);
-      }
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['third_audio'], assets['second_delay_time']);
-
-      await _assetSetting.listenSoundCompletion().then((_) async {
-        print("debug : 세번째 오디오 종료 리스너");
-        _canSwitchScreenController.add(true);
-        _recordingQuestionController.add(true);
-      });
-
-      Timer(Duration(seconds: 3), () {
-        print("----------------------타임아웃------------------------");
-        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-          saveAnswer(-1);
-        } else if (assets['question_no'] != -1 &&
-            assets['correct_answer'] == -1) {
-          saveRecord();
-        } else if (assets['question_no'] == -1) {
-          completer.complete();
-
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) =>
@@ -206,7 +214,51 @@ class _QuestionViewState extends State<QuestionView> {
     } else if (assets['audio'] != '' &&
         assets['second_audio'] != '' &&
         assets['third_audio'] != '' &&
-    assets['fourth_audio'] != '') {
+        assets['fourth_audio'] == '') {
+      await _assetSetting.playSound(assets['audio']);
+      await _assetSetting.listenSoundCompletion();
+      await _assetSetting.playDelayedSound(
+          assets['second_audio'], assets['delay_time']);
+      if (assets['question_no'] == -1) {
+        _recordingQuestionController.add(true);
+      }
+      await _assetSetting.listenSoundCompletion();
+      await _assetSetting.playDelayedSound(
+          assets['third_audio'], assets['second_delay_time']);
+
+      await _assetSetting.listenSoundCompletion().then((_) async {
+        print("debug : 세번째 오디오 종료 리스너");
+        _canSwitchScreenController.add(true);
+        _recordingQuestionController.add(true);
+      });
+
+      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
+        print("----------------------타임아웃------------------------");
+        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
+          saveAnswer(-1);
+        } else if (assets['question_no'] != -1 &&
+            assets['correct_answer'] == -1) {
+          saveRecord();
+        } else if (assets['question_no'] == -1) {
+          completer.complete();
+
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      QuestionView(pageNumber: widget.pageNumber + 1)));
+        }
+        if (!completer.isCompleted) {
+          print(
+              "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
+
+          completer.complete();
+        }
+      });
+    } else if (assets['audio'] != '' &&
+        assets['second_audio'] != '' &&
+        assets['third_audio'] != '' &&
+        assets['fourth_audio'] != '') {
       await _assetSetting.playSound(assets['audio']);
       await _assetSetting.listenSoundCompletion();
       await _assetSetting.playDelayedSound(
@@ -217,6 +269,7 @@ class _QuestionViewState extends State<QuestionView> {
       await _assetSetting.listenSoundCompletion();
       await _assetSetting.playDelayedSound(
           assets['fourth_audio'], assets['third_delay_time']);
+      await _assetSetting.listenSoundCompletion();
       await _assetSetting.setPage19Asset();
 
       await _assetSetting.listenSoundCompletion().then((_) async {
@@ -225,7 +278,7 @@ class _QuestionViewState extends State<QuestionView> {
         _recordingQuestionController.add(true);
       });
 
-      Timer(Duration(seconds: 3), () {
+      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
         print("----------------------타임아웃------------------------");
         if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
           saveAnswer(-1);
@@ -235,7 +288,7 @@ class _QuestionViewState extends State<QuestionView> {
         } else if (assets['question_no'] == -1) {
           completer.complete();
 
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) =>
@@ -250,7 +303,7 @@ class _QuestionViewState extends State<QuestionView> {
       });
     }
 
-    if (record_questions.contains(widget.pageNumber)) {
+    if (recordQuestions.contains(widget.pageNumber)) {
       await _assetSetting.startRecording(assets['question_no']);
     }
     if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
@@ -325,22 +378,20 @@ class _QuestionViewState extends State<QuestionView> {
 
                       print("debug: canSwitchScreen $canSwitchScreen");
 
-
                       return Row(
                         children: [
-                              TextButton(
-                                  onPressed: canSwitchScreen
-                                      ? () {
-                                    // Do something when the button is pressed
-                                    saveAnswer(1);
-                                  }
-                                      : null,
-                                  child: Image.asset(
-                                    assets['choice1'],
-                                    height:
+                          TextButton(
+                              onPressed: canSwitchScreen
+                                  ? () {
+                                      // Do something when the button is pressed
+                                      saveAnswer(1);
+                                    }
+                                  : null,
+                              child: Image.asset(
+                                assets['choice1'],
+                                height:
                                     MediaQuery.of(context).size.height * 0.2,
-                                  )),
-
+                              )),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.05,
                           ),
@@ -798,6 +849,123 @@ class _QuestionViewState extends State<QuestionView> {
                     ],
                   );
                 })
+          ]),
+        );
+      } else if (assets['template_no'] == 8) {
+        return Scaffold(
+            body: Stack(
+          children: <Widget>[
+            SizedBox.expand(
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: _videoPlayerController.value.size?.width ?? 0,
+                  height: _videoPlayerController.value.size?.height ?? 0,
+                  child: VideoPlayer(_videoPlayerController),
+                ),
+              ),
+            ),
+            //FURTHER IMPLEMENTATION
+          ],
+        ));
+      } else if (assets['template_no'] == 9) {
+        return Scaffold(
+          body: Column(children: [
+            Image.asset(assets['wave'],
+                width: MediaQuery.of(context).size.width * 1,
+                fit: BoxFit.cover),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            if(widget.pageNumber == 28)
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.height * 0.3,
+              child :FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: _videoPlayerController.value.size?.width ?? 0,
+                  height: _videoPlayerController.value.size?.height ?? 0,
+                  child: VideoPlayer(_videoPlayerController),
+                ),
+              ),
+            )
+            else if (widget.pageNumber == 30)
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width * 0.6,
+                child :FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: _videoPlayerController.value.size?.width ?? 0,
+                    height: _videoPlayerController.value.size?.height ?? 0,
+                    child: VideoPlayer(_videoPlayerController),
+                  ),
+                ),
+              ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                StreamBuilder<bool>(
+                    stream: _canSwitchScreenController.stream,
+                    initialData: false,
+                    builder: (context, snapshot) {
+                      bool canSwitchScreen = snapshot.data ?? false;
+
+                      print("debug: canSwitchScreen $canSwitchScreen");
+
+                      return Row(
+                        children: [
+                          TextButton(
+                              onPressed: canSwitchScreen
+                                  ? () {
+                                      // Do something when the button is pressed
+                                      saveAnswer(1);
+                                    }
+                                  : null,
+                              child: Image.asset(
+                                assets['choice1'],
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          TextButton(
+                              onPressed: canSwitchScreen
+                                  ? () {
+                                      // Do something when the button is pressed
+                                      saveAnswer(2);
+                                    }
+                                  : null,
+                              child: Image.asset(
+                                assets['choice2'],
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          TextButton(
+                              onPressed: canSwitchScreen
+                                  ? () {
+                                      // Do something when the button is pressed
+                                      saveAnswer(3);
+                                    }
+                                  : null,
+                              child: Image.asset(
+                                assets['choice3'],
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                              ))
+                        ],
+                      );
+                    })
+              ],
+            )
           ]),
         );
       } else {

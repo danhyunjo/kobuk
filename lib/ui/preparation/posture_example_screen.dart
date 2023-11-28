@@ -29,40 +29,28 @@ class _PostureExampleScreenState extends State<PostureExampleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:
-        Column(
-          children: [
-            Image.asset('assets/images/wave/light_blue_wave.png',),
-            const SizedBox(height: 30,),
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-
-                children: [
-                  Image.asset(
-                      'assets/images/posture_exam.png', width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.9, height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.7),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, RouteName.sightExam);
-                        _audioLogic.pauseSound();
-                      },
-                      child: Image.asset(
-                        'assets/images/arrow.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.1,
-                      )),
-                ])
-
-          ],
-        )
-    );
+        body: Column(
+      children: [
+        Image.asset(
+          'assets/images/wave/light_blue_wave.png',
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Image.asset('assets/images/posture_exam.png',
+              height: MediaQuery.of(context).size.height * 0.7),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteName.sightExam);
+                _audioLogic.pauseSound();
+              },
+              child: Image.asset(
+                'assets/images/arrow.png',
+                width: MediaQuery.of(context).size.width * 0.1,
+              )),
+        ])
+      ],
+    ));
   }
 }
-

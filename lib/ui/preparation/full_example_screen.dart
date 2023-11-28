@@ -37,7 +37,7 @@ class _FullExampleScreenState extends State<FullExampleScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
 
             children: [
-              Image.asset('assets/images/full_exam.png'),
+              Image.asset('assets/images/full_exam.png',height: MediaQuery.of(context).size.height * 0.7),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, RouteName.postureExam);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
-
+import 'package:video_player/video_player.dart';
 import '../../repo/audio_player.dart';
 
 class SightExampleScreen extends StatefulWidget {
@@ -12,13 +12,16 @@ class SightExampleScreen extends StatefulWidget {
 
 class _SightExampleScreenState extends State<SightExampleScreen> {
   final String audioPath = 'sounds/sight_exam.mp3';
+
   final SoundPlayer _audioLogic = SoundPlayer();
 
   @override
   void initState() {
     super.initState();
     _audioLogic.playSound(audioPath);
+
   }
+
 
   @override
   void dispose() {
@@ -28,8 +31,9 @@ class _SightExampleScreenState extends State<SightExampleScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-        body: Column(
+      body: Column(
       children: [
         Image.asset('assets/images/wave/light_blue_wave.png'),
         const SizedBox(
@@ -38,7 +42,7 @@ class _SightExampleScreenState extends State<SightExampleScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/sight_exam.png'),
+            Image.asset('assets/images/sight_exam.png',height: MediaQuery.of(context).size.height * 0.6),
             TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, RouteName.start);
@@ -50,7 +54,8 @@ class _SightExampleScreenState extends State<SightExampleScreen> {
                 )),
           ],
         ),
-      ],
-    ));
+        ],
+      )
+    );
   }
 }

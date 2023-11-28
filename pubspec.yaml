@@ -47,6 +47,7 @@ dependencies:
   flutter_sound: ^9.2.13
   permission_handler: ^11.0.1
   firebase_storage: ^11.5.1
+  video_player: ^2.8.1
 
 dev_dependencies:
   flutter_test:
@@ -110,6 +111,7 @@ flutter:
      - assets/page_assets.json
      - assets/sounds/intro.mp3
      - assets/sounds/
+     - assets/videos/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

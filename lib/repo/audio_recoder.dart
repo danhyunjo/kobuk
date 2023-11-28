@@ -44,8 +44,6 @@ class SoundRecorder {
       String studentId, String testStartTime) async {
     if (!isRecorderReady) return;
 
-    String currentDate = getToday();
-
     Directory? ex1 = await getExternalStorageDirectory();
 
     String dirPath = '${ex1!.path}/$schoolCode-$classId-$studentId/$testStartTime';
@@ -59,15 +57,18 @@ class SoundRecorder {
 
   }
 
-  Future<void> stopRecording(String schoolCode, String classId,
+  Future<int> stopRecording(String schoolCode, String classId,
       String studentId, int questionNo, String currentDate) async {
-    if (!isRecorderReady) return null;
-
-    final filePath = await audioRecoder.stopRecorder();
-    File(filePath!);
-
-    print("debug : local file path ${filePath}");
-    _firestorageManager.writeRecording(
-        schoolCode, classId, studentId, questionNo, currentDate);
+    if (!isRecorderReady) return 0;
+    try {
+      final filePath = await audioRecoder.stopRecorder();
+      File(filePath!);
+      print("debug : local file path ${filePath}");
+      _firestorageManager.writeRecording(
+          schoolCode, classId, studentId, questionNo, currentDate);
+      return 1;
+    } catch ($error) {
+      return 0;
+    }
   }
 }

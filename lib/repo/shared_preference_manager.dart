@@ -25,7 +25,7 @@ class SharedPreferencesManager {
 
     await prefs.setInt('${addLeadingZero(questionNumber)}\_answer', answer);
     await prefs.setInt('${addLeadingZero(questionNumber)}\_elapse_time', elapsedTime);
-    await prefs.setInt('${addLeadingZero(questionNumber)}\_error', 0);
+    // await prefs.setInt('${addLeadingZero(questionNumber)}\_error', 0);
 
     final keys = prefs.getKeys();
 
@@ -42,8 +42,7 @@ class SharedPreferencesManager {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt('${addLeadingZero(questionNumber)}\_is_recorded', isRecorded);
-    // await prefs.setInt('$questionNumber\_elapse_time', elapsedTime);
-    await prefs.setInt('${addLeadingZero(questionNumber)}\_error', 0);
+    // await prefs.setInt('${addLeadingZero(questionNumber)}\_error', 0);
 
     final keys = prefs.getKeys();
 
@@ -54,6 +53,12 @@ class SharedPreferencesManager {
     print(prefs);
     print(prefsMap);
 
+  }
+
+  Future<void> saveError(int isError) async{
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setInt('is_error', isError);
   }
 
   Future<void> saveChildReview(int childReview) async {
