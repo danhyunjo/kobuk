@@ -22,7 +22,10 @@ class _QuestionViewState extends State<QuestionView> {
   final StreamController<bool> _recordingQuestionController =
       StreamController<bool>();
   late VideoPlayerController _videoPlayerController;
-  late Timer t;
+  late Timer timeout;
+  late Timer audioAnimation;
+  double imageSize = 100; // Initial size of the image
+  bool isSmaller = false; // Flag to track whether the image is currently smaller
 
 
   AudioSetting _assetSetting = AudioSetting();
@@ -39,7 +42,7 @@ class _QuestionViewState extends State<QuestionView> {
         "-------------------------------사용자가 넘김(버튼 클릭으로)-------------------------------");
 
     completer.complete();
-    t.cancel();
+    timeout.cancel();
 
     Navigator.pushReplacement(
         context,
@@ -50,6 +53,8 @@ class _QuestionViewState extends State<QuestionView> {
 
   Future<void> saveRecord() async {
     completer.complete();
+    timeout.cancel();
+    audioAnimation.cancel();
 
     if (widget.pageNumber != 36) {
       Navigator.pushReplacement(
@@ -67,6 +72,17 @@ class _QuestionViewState extends State<QuestionView> {
 
       _assetSetting.saveRecordAnswer(assets['question_no'], isRecorded);
     }
+  }
+
+  void startAnimation() {
+    audioAnimation = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        // Toggle the flag to switch between making the image smaller and restoring its size
+        isSmaller = !isSmaller;
+        // Update the size based on the flag
+        imageSize = isSmaller ? 90.0 : 100.0;
+      });
+    });
   }
 
   Future<void> setAsset() async {
@@ -102,29 +118,7 @@ class _QuestionViewState extends State<QuestionView> {
         // Video playback complete, navigate to the next screen
         _canSwitchScreenController.add(true);
 
-        Timer(Duration(seconds: assets['max_elapsed_time']), () {
-          print("--------------------타임아웃-----------------------");
-          if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-            saveAnswer(-1);
-          } else if (assets['question_no'] != -1 &&
-              assets['correct_answer'] == -1) {
-            saveRecord();
-          } else if (assets['question_no'] == -1) {
-            completer.complete();
-
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        QuestionView(pageNumber: widget.pageNumber + 1)));
-          }
-          if (!completer.isCompleted) {
-            print(
-                "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
-
-            completer.complete();
-          }
-        });
+        setScreenSwitcher();
       }
     });
 
@@ -149,29 +143,8 @@ class _QuestionViewState extends State<QuestionView> {
         _recordingQuestionController.add(true);
       });
 
-      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
-        print("--------------------타임아웃-----------------------");
-        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-          saveAnswer(-1);
-        } else if (assets['question_no'] != -1 &&
-            assets['correct_answer'] == -1) {
-          saveRecord();
-        } else if (assets['question_no'] == -1) {
-          completer.complete();
+      setScreenSwitcher();
 
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuestionView(pageNumber: widget.pageNumber + 1)));
-        }
-        if (!completer.isCompleted) {
-          print(
-              "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
-
-          completer.complete();
-        }
-      });
 
     } else if (assets['audio'] != '' &&
         assets['second_audio'] != '' &&
@@ -188,29 +161,8 @@ class _QuestionViewState extends State<QuestionView> {
         _recordingQuestionController.add(true);
       });
 
-      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
-        print("---------------------타임아웃-------------------");
-        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-          saveAnswer(-1);
-        } else if (assets['question_no'] != -1 &&
-            assets['correct_answer'] == -1) {
-          saveRecord();
-        } else if (assets['question_no'] == -1) {
-          completer.complete();
+      setScreenSwitcher();
 
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuestionView(pageNumber: widget.pageNumber + 1)));
-        }
-        if (!completer.isCompleted) {
-          print(
-              "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
-
-          completer.complete();
-        }
-      });
     } else if (assets['audio'] != '' &&
         assets['second_audio'] != '' &&
         assets['third_audio'] != '' &&
@@ -232,29 +184,8 @@ class _QuestionViewState extends State<QuestionView> {
         _recordingQuestionController.add(true);
       });
 
-      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
-        print("----------------------타임아웃------------------------");
-        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-          saveAnswer(-1);
-        } else if (assets['question_no'] != -1 &&
-            assets['correct_answer'] == -1) {
-          saveRecord();
-        } else if (assets['question_no'] == -1) {
-          completer.complete();
+      setScreenSwitcher();
 
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuestionView(pageNumber: widget.pageNumber + 1)));
-        }
-        if (!completer.isCompleted) {
-          print(
-              "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
-
-          completer.complete();
-        }
-      });
     } else if (assets['audio'] != '' &&
         assets['second_audio'] != '' &&
         assets['third_audio'] != '' &&
@@ -278,33 +209,14 @@ class _QuestionViewState extends State<QuestionView> {
         _recordingQuestionController.add(true);
       });
 
-      t = Timer(Duration(seconds: assets['max_elapsed_time']), () {
-        print("----------------------타임아웃------------------------");
-        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-          saveAnswer(-1);
-        } else if (assets['question_no'] != -1 &&
-            assets['correct_answer'] == -1) {
-          saveRecord();
-        } else if (assets['question_no'] == -1) {
-          completer.complete();
-
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuestionView(pageNumber: widget.pageNumber + 1)));
-        }
-        if (!completer.isCompleted) {
-          print(
-              "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
-
-          completer.complete();
-        }
-      });
+      setScreenSwitcher();
     }
 
     if (recordQuestions.contains(widget.pageNumber)) {
+      print("--start animation---");
+    startAnimation();
       await _assetSetting.startRecording(assets['question_no']);
+
     }
     if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
       await _assetSetting.setTimer();
@@ -313,24 +225,30 @@ class _QuestionViewState extends State<QuestionView> {
     print('debug : $assets');
   }
 
-  Future<void> setScreenSwticer() async {
-    Completer<void> completer = Completer<void>();
+  Future<void> setScreenSwitcher() async {
+    timeout = Timer(Duration(seconds: assets['max_elapsed_time']), () {
+      print("----------------------타임아웃------------------------");
+      if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
+        saveAnswer(-1);
+      } else if (assets['question_no'] != -1 &&
+          assets['correct_answer'] == -1) {
+        saveRecord();
+      } else if (assets['question_no'] == -1) {
+        completer.complete();
 
-    Duration timeoutDuration = Duration(seconds: 5);
-
-    Timer timeoutTimer = Timer(timeoutDuration, () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    QuestionView(pageNumber: widget.pageNumber + 1)));
+      }
       if (!completer.isCompleted) {
-        if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-          saveAnswer(-1);
-        } else if (assets['question_no'] != -1 &&
-            assets['correct_answer'] == -1) {
-          saveRecord();
-        }
+        print(
+            "-------------------------------사용자가 넘김(스트림에서)-------------------------------");
+
         completer.complete();
       }
     });
-
-    timeoutTimer.cancel();
   }
 
   @override
@@ -639,57 +557,70 @@ class _QuestionViewState extends State<QuestionView> {
       } //녹음문제
       else if (assets['template_no'] == 5) {
         return Scaffold(
-          body: Column(
-            children: [
-              Image.asset(assets['wave']),
-              Stack(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-                  if (assets['question_no'] == -1)
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: const Text(
-                          '(연습화면)',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 24,
-                              fontFamily: 'HY'),
-                        )),
-                ],
-              ),
-              StreamBuilder<bool>(
-                  stream: _recordingQuestionController.stream,
-                  initialData: false,
-                  builder: (context, snapshot) {
-                    bool recordingQuestion = snapshot.data ?? false;
-                    if (recordingQuestion)
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(assets['question'],
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              fit: BoxFit.fill)
-                        ],
-                      );
-                    else
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.35);
-                  }),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-              if (assets['question_no'] != -1)
-                Row(
+          body: Container(
+            color: assets['question_no'] == -1? Colors.lightGreen : Colors.white,
+            child: Column(
+              children: [
+                Image.asset(assets['wave']),
+                Stack(
                   children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Image.asset('assets/images/record.png')),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                    if (assets['question_no'] == -1)
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: const Text(
+                            '(연습화면)',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 24,
+                                fontFamily: 'HY'),
+                          )),
                   ],
-                )
-            ],
+                ),
+                StreamBuilder<bool>(
+                    stream: _recordingQuestionController.stream,
+                    initialData: false,
+                    builder: (context, snapshot) {
+                      bool recordingQuestion = snapshot.data ?? false;
+                      if (recordingQuestion)
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(assets['question'],
+                                height: MediaQuery.of(context).size.height * 0.35,
+                                fit: BoxFit.fill)
+                          ],
+                        );
+                      else
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.35);
+                    }),
+                if(assets['question_no'] == -1)
+                  Text("이것은 연습 화면 입니다", style:TextStyle(color: Colors.black38, fontSize: 30))
+                else
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                ),
+                if (assets['question_no'] != -1)
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Center(child: AnimatedContainer(
+                        duration: Duration(milliseconds: 500),
+                        width: imageSize,
+                        height: imageSize,
+                        child: Image.asset(
+                          'assets/images/record.png', // Replace with your image URL
+                          fit: BoxFit.cover,
+                        ),
+                      ),)
+
+                    ],
+                  )
+              ],
+            ),
           ),
         );
       } //선택지4

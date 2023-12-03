@@ -39,7 +39,7 @@ class _PostureExampleScreenState extends State<PostureExampleScreen> {
         ),
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Image.asset('assets/images/posture_exam.png',
-              height: MediaQuery.of(context).size.height * 0.7),
+              height: MediaQuery.of(context).size.height * 0.5),
           TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, RouteName.sightExam);

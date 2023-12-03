@@ -116,6 +116,12 @@ class SharedPreferencesManager {
 
   }
 
+  Future<void> saveResearcherName(String name) async{
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('researcher_name', name);
+  }
+
   Future<Map<String,dynamic>> getAll() async{
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys();

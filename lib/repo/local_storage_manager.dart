@@ -25,7 +25,7 @@ class LocalStorageManager {
 
   Future<String> writeJsonFile(Map<String,dynamic> data, String schoolCode, String classId, String studentId) async{
 
-    try {
+    // try {
       String currentDate = getToday();
 
       Directory? ex1 = await getExternalStorageDirectory();
@@ -38,10 +38,10 @@ class LocalStorageManager {
 
       print("debug:${file.path}");
 
-      return "";
-    } catch (e){
-      return "$e";
-    }
+      return "${ex2.path}";
+    // } catch (e){
+    //   return "$e";
+    // }
 
   }
 }

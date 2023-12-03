@@ -42,7 +42,7 @@ class _SightExampleScreenState extends State<SightExampleScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/sight_exam.png',height: MediaQuery.of(context).size.height * 0.6),
+            Image.asset('assets/images/sight_exam.png',height: MediaQuery.of(context).size.height * 0.5),
             TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, RouteName.start);
