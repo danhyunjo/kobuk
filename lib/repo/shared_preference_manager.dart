@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesManager {
 
   String addLeadingZero(int number) {
-    // Use NumberFormat to format the number with leading zeros
     NumberFormat formatter = NumberFormat('00');
     return formatter.format(number);
   }
@@ -132,6 +131,18 @@ class SharedPreferencesManager {
     }
 
     return prefsMap;
+  }
+
+  Future<void> saveCode(String code) async{
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('code', code);
+  }
+
+  Future<void> saveTestFinishTime(String testFinishTime) async{
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('test_finish_time', testFinishTime);
   }
 
 

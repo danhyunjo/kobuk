@@ -5,16 +5,9 @@ import 'package:intl/intl.dart';
 
 class DatabaseManager {
 
-  String getToday() {
-    DateTime now = DateTime.now();
-    DateFormat formatter = DateFormat('yyyy-MM-dd-HH-mm');
-    print("debug ${formatter.format(now)}");
-    return formatter.format(now);
-  }
 
-  Future<String> writeResult(String SchoolCode, String ClassId, String StudentId, Map<String,dynamic> data) async{
-    String currentDate = getToday();
-    DatabaseReference ref = FirebaseDatabase.instance.ref("$SchoolCode-$ClassId-$StudentId-$currentDate");
+  Future<String> writeResult(String SchoolCode, String ClassId, String StudentId, String testStartTime, Map<String,dynamic> data) async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("$SchoolCode-$ClassId-$StudentId-$testStartTime");
 
     try {
       await ref.set(data);
@@ -24,5 +17,26 @@ class DatabaseManager {
     }
 
   }
+
+  Future<int> countRound(String schoolCode, String classCode, String studentCode) async {
+    DataSnapshot snapshot = await FirebaseDatabase.instance.ref().get();
+    int count = 0;
+
+    if (snapshot.value != null) {
+      Map<dynamic, dynamic>? allItems = snapshot.value as Map<dynamic, dynamic>?;
+
+      if (allItems != null) {
+        allItems.forEach((key, value) {
+          // String DBcode = value['code'];
+          if (value is Map && value['schoolCode'] == schoolCode && value['classId'] == classCode && value['studentId'] == studentCode) {
+            count++;
+          }
+        });
+      }
+    }
+
+    return count;
+  }
+
 
 }

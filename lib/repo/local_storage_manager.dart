@@ -23,15 +23,15 @@ class LocalStorageManager {
     }
   }
 
-  Future<String> writeJsonFile(Map<String,dynamic> data, String schoolCode, String classId, String studentId) async{
+  Future<String> writeJsonFile(String schoolCode, String classId, String studentId, String testStartTime, Map<String,dynamic> data) async{
 
     // try {
-      String currentDate = getToday();
+    //   String currentDate = getToday();
 
       Directory? ex1 = await getExternalStorageDirectory();
 
       Directory ex2 = await Directory('${ex1!.path}/$schoolCode-$classId-$studentId').create(recursive: true);
-      File file = File('${ex2.path}/$schoolCode-$classId-$studentId-$currentDate.txt');
+      File file = File('${ex2.path}/$schoolCode-$classId-$studentId-$testStartTime.txt');
 
       String jsonString = jsonEncode(data);
       await file.writeAsString(jsonString);

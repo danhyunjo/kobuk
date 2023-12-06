@@ -1,19 +1,17 @@
 // import 'dart:html';
 
-import 'package:kobuk/repo/timer.dart';
 import 'package:logger/logger.dart';
 import 'package:video_player/video_player.dart';
 
-import '../repo/audio_player.dart';
-import '../repo/audio_recoder.dart';
-import '../repo/shared_preference_manager.dart';
+import '../../repo/audio_player.dart';
+import '../../repo/audio_recoder.dart';
+import '../../repo/shared_preference_manager.dart';
 
 class AudioSetting {
   final _audioPlayer = SoundPlayer();
   final _prefsManager = SharedPreferencesManager();
   final _audioRecorder = SoundRecorder();
   final _stopwatch = Stopwatch();
-  // final _screenSwitcher = ScreenSwitcher();
   late VideoPlayerController _videoPlayerController;
 
 
@@ -120,89 +118,3 @@ class AudioSetting {
 
 
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:kobuk/core/route/route_name.dart';
-// import 'package:video_player/video_player.dart';
-// import '../../repo/audio_player.dart';
-//
-// class SightExampleScreen extends StatefulWidget {
-//   const SightExampleScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   State<SightExampleScreen> createState() => _SightExampleScreenState();
-// }
-//
-// class _SightExampleScreenState extends State<SightExampleScreen> {
-//
-//   // final SoundPlayer _audioLogic = SoundPlayer();
-//   late VideoPlayerController _videoPlayerController;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _videoPlayerController = VideoPlayerController.asset(
-//       'assets/videos/page22.mp4',
-//     )..initialize().then((_) {
-//       print("Video initialization successful");
-//       setState(() {
-//         // Start playing the video after initialization
-//         // _videoPlayerController.play();
-//       });
-//       _videoPlayerController.play();
-//     });
-//   }
-//
-//
-//   @override
-//   void dispose() {
-//     // _audioLogic.dispose();
-//     _videoPlayerController.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return Scaffold(
-//       body: Stack(
-//         children: <Widget>[
-//           SizedBox.expand(
-//             child: FittedBox(
-//               fit: BoxFit.cover,
-//               child: SizedBox(
-//                 width: _videoPlayerController.value.size?.width ?? 0,
-//                 height: _videoPlayerController.value.size?.height ?? 0,
-//                 child: VideoPlayer(_videoPlayerController),
-//               ),
-//             ),
-//           ),
-//           //FURTHER IMPLEMENTATION
-//         ],
-//       )
-//     //   body: Column(
-//       // children: [
-//       //   Image.asset('assets/images/wave/light_blue_wave.png'),
-//       //   const SizedBox(
-//       //     height: 30,
-//       //   ),
-//       //   Column(
-//       //     mainAxisAlignment: MainAxisAlignment.center,
-//       //     children: [
-//       //       Image.asset('assets/images/sight_exam.png'),
-//       //       TextButton(
-//       //           onPressed: () {
-//       //             Navigator.pushNamed(context, RouteName.start);
-//       //             _audioLogic.pauseSound();
-//       //           },
-//       //           child: Image.asset(
-//       //             'assets/images/arrow.png',
-//       //             width: MediaQuery.of(context).size.width * 0.1,
-//       //           )),
-//       //     ],
-//       //   ),
-//       //   ],
-//       // )
-//     );
-//   }
-// }
