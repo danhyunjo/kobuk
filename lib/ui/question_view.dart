@@ -25,6 +25,8 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
   late Timer timeout;
   late AnimationController _controller;
   late Animation<double> _animation;
+  bool _hasCompletedPlayback = false;
+
   // late Timer audioAnimation;
   // double imageSize = 100; // Initial size of the image
   // bool isSmaller =
@@ -46,9 +48,9 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
 
     // completer.complete();
 
-if(widget.pageNumber != 19) {
+// if(widget.pageNumber != 19) {
   timeout.cancel();
-}
+
 
 
     Navigator.pushReplacement(
@@ -61,9 +63,9 @@ if(widget.pageNumber != 19) {
   Future<void> saveRecord() async {
     // completer.complete();
 
-    if(timeout != null) {
-      timeout?.cancel();
-    }        // audioAnimation.cancel();
+    // if(timeout != null) {
+      timeout.cancel();
+    // }        // audioAnimation.cancel();
 
     if (widget.pageNumber != 36) {
       Navigator.pushReplacement(
@@ -136,10 +138,13 @@ if(widget.pageNumber != 19) {
       });
 
     _videoPlayerController.addListener(() {
-      if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {
+      if (!_hasCompletedPlayback &&
+          _videoPlayerController.value.position ==
+              _videoPlayerController.value.duration) {
         // Video playback complete, navigate to the next screen
         _canSwitchScreenController.add(true);
+        _hasCompletedPlayback = true;
+        print("-----------End video---------------------------");
 
         setTestScreenSwitcher();
       }
@@ -244,6 +249,7 @@ if(widget.pageNumber != 19) {
     print('debug : $assets');
   }
 
+
   Future<void> setTestScreenSwitcher() async {
     countdown = assets['max_elapsed_time'];
 
@@ -251,23 +257,25 @@ if(widget.pageNumber != 19) {
       setState(() {
         if (countdown > 0) {
           countdown--;
-        } else {
-          if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-            saveAnswer(-1);
-          } else if (assets['question_no'] != -1 &&
-              assets['correct_answer'] == -1) {
-            saveRecord();
-          } else if (assets['question_no'] == -1) {
-            // completer.complete();
 
-            timer.cancel();
-
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        QuestionView(pageNumber: widget.pageNumber + 1)));
+          if (countdown == 0){
+            if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
+              saveAnswer(-1);
+            } else if (assets['question_no'] != -1 &&
+                assets['correct_answer'] == -1) {
+              saveRecord();
+            }
           }
+        } else if (assets['question_no'] == -1) {
+          // completer.complete();
+
+          timer.cancel();
+
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      QuestionView(pageNumber: widget.pageNumber + 1)));
         }
       });
     });
@@ -286,6 +294,7 @@ if(widget.pageNumber != 19) {
     _assetSetting.disposeRecorder();
     _canSwitchScreenController.close();
     _controller.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -633,7 +642,7 @@ if(widget.pageNumber != 19) {
                             ),
                             if (assets['question_no'] == -1)
                               Text("이것은 연습 화면 입니다",
-                                  style: TextStyle(color: Colors.black38, fontSize: 30))
+                                  style: TextStyle(color: Colors.black38, fontSize: MediaQuery.of(context).size.height * 0.05))
                             else
                               SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.05,

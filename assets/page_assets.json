@@ -291,7 +291,7 @@
     "third_audio": "sounds/page23-3.mp3",
     "delay_time": 1000,
     "second_delay_time": 500,
-    "correct_answer": 3,
+    "correct_answer": 2,
     "fourth_audio": "",
     "third_delay_time": 0,
     "max_elapsed_time": 6

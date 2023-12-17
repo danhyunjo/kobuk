@@ -19,6 +19,7 @@ class _SaveScreenState extends State<SaveScreen> {
   LocalStorageManager _localManager = LocalStorageManager();
   TextEditingController _resarcherName = TextEditingController();
   String code = '';
+  bool canSave = false;
 
   String getCurrentTime() {
     DateTime now = DateTime.now();
@@ -53,6 +54,7 @@ class _SaveScreenState extends State<SaveScreen> {
 
     setState(() {
       code = codeWithRound;
+      canSave = true;
     });
   }
 
@@ -106,7 +108,7 @@ class _SaveScreenState extends State<SaveScreen> {
         String filePath = await _localManager.writeJsonFile(
             schoolCode, classId, studentId, testStartTime, data);
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('local 저장 성공 $filePath')));
+            .showSnackBar(SnackBar(content: Text('local 저장 성공, 파일 경로 : $filePath')));
       } catch (error) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('local 저장 실패 : $error')));
@@ -147,10 +149,12 @@ class _SaveScreenState extends State<SaveScreen> {
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.35),
               onPressed: () async {
-                await saveExtraInfo();
-                await writeLocal();
-                await writeDB();
-                await resetAll();
+                if (canSave) {
+                  await saveExtraInfo();
+                  await writeLocal();
+                  await writeDB();
+                  await resetAll();
+                }
               },
             ),
             Column(
@@ -164,6 +168,8 @@ class _SaveScreenState extends State<SaveScreen> {
                   ),
                   onPressed: (){
                     Clipboard.setData(ClipboardData(text: "$code"));
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('복사 되었습니다')));
 
                   },
                   child: Text('복사', style: TextStyle(fontSize:  MediaQuery.of(context).size.width * 0.02, color: Colors.black)

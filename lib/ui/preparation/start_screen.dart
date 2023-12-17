@@ -54,7 +54,7 @@ class _StartScreenState extends State<StartScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => QuestionView(pageNumber: 36)));
+                      builder: (context) => QuestionView(pageNumber: 1)));
               _audioLogic.pauseSound();
             },
             child: Icon(Icons.arrow_forward))
