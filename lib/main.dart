@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kobuk/ui/preparation/start_screen.dart';
 import 'package:kobuk/ui/preparation/subject_info_screen.dart';
-import 'package:kobuk/ui/test.dart';
 import 'ui/preparation/intro_screen.dart';
+import 'ui/question_view.dart';
 import 'core/route/route_name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebas'
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       // debugShowCheckedModeBanner : 디버깅 라벨 삭제
       debugShowCheckedModeBanner: false,
       routes: namedRoutes,
-      home: SubjectInfoScreen(),
+      home: StartScreen(),
     );
   }
 }

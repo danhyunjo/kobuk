@@ -26,10 +26,10 @@ Future<void> playSound(String audioPath) async {
   }
 
   Future<void> playDelayedSound(String audioPath, int delayTime) async {
+    print("debug : beforeplay $audioPath");
+    // await listenAudioCompletion();
+    await playSound(audioPath);
     await Future.delayed(Duration(milliseconds: delayTime), () async {
-      print("debug : beforeplay $audioPath");
-      // await listenAudioCompletion();
-      await playSound(audioPath);
       print("debug : afterplay $audioPath");
     });
   }

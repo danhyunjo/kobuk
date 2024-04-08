@@ -16,7 +16,8 @@ class QuestionView extends StatefulWidget {
   State<QuestionView> createState() => _QuestionViewState();
 }
 
-class _QuestionViewState extends State<QuestionView> with SingleTickerProviderStateMixin{
+class _QuestionViewState extends State<QuestionView>
+    with SingleTickerProviderStateMixin {
   final StreamController<bool> _canSwitchScreenController =
       StreamController<bool>();
   final StreamController<bool> _recordingQuestionController =
@@ -26,11 +27,6 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
   late AnimationController _controller;
   late Animation<double> _animation;
   bool _hasCompletedPlayback = false;
-
-  // late Timer audioAnimation;
-  // double imageSize = 100; // Initial size of the image
-  // bool isSmaller =
-  //     false; // Flag to track whether the image is currently smaller
   int countdown = 0;
 
   AudioSetting _assetSetting = AudioSetting();
@@ -46,12 +42,7 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
     print(
         "-------------------------------사용자가 넘김(버튼 클릭으로)-------------------------------");
 
-    // completer.complete();
-
-// if(widget.pageNumber != 19) {
-  timeout.cancel();
-
-
+    timeout.cancel();
 
     Navigator.pushReplacement(
         context,
@@ -61,11 +52,7 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
   }
 
   Future<void> saveRecord() async {
-    // completer.complete();
-
-    // if(timeout != null) {
-      timeout.cancel();
-    // }        // audioAnimation.cancel();
+    timeout.cancel();
 
     if (widget.pageNumber != 36) {
       Navigator.pushReplacement(
@@ -91,24 +78,14 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
       duration: Duration(seconds: 1),
     );
 
-    // Create a curved animation with a smaller interval to control the scaling
     _animation = CurvedAnimation(
       parent: _controller,
-      curve: Interval(0.0, 0.8, curve: Curves.easeInOut), // Adjust the interval as needed
+      curve: Interval(0.0, 0.8,
+          curve: Curves.easeInOut), // Adjust the interval as needed
     );
 
-    // Repeat the animation indefinitely
     _controller.repeat(reverse: true);
   }
-    // audioAnimation = Timer.periodic(Duration(seconds: 1), (Timer timer) {
-    //   setState(() {
-    //     // Toggle the flag to switch between making the image smaller and restoring its size
-    //     isSmaller = !isSmaller;
-    //     // Update the size based on the flag
-    //     imageSize = isSmaller ? 90.0 : 100.0;
-    //   });
-    // });
-
 
   Future<void> setAsset() async {
     List<int> animationVideos = [20, 22, 24, 26, 28, 30];
@@ -119,7 +96,6 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
       assets = data['page' + widget.pageNumber.toString()];
     });
     print('debug : assets $assets');
-
     print('debug : call setAudio');
     if (animationVideos.contains(widget.pageNumber)) {
       setVideo(assets['video_path']);
@@ -151,91 +127,33 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
     });
   }
 
-  Future<void> setAudio() async {
-    List<int> recordQuestions = [7, 8, 9, 11, 12, 13, 14, 35, 36];
+  Future<void> setAudio() async{
+    List<int> recordQuestions = [13, 14, 15, 17, 18, 19, 20, 46, 47];
+    List<dynamic> audio_files = assets['audio_files'];
+    List<dynamic> audio_delayes = assets['audio_delayes'];
 
-    // Set a timeout duration (e.g., 5 seconds)
-
-    if (assets['audio'] != '' &&
-        assets['second_audio'] == '' &&
-        assets['third_audio'] == '' &&
-        assets['fourth_audio'] == '') {
-      await _assetSetting.playSound(assets['audio']);
-
-      await _assetSetting.listenSoundCompletion().then((_) async {
-        print("debug : 첫번째 오디오 종료 리스너");
-
-        _canSwitchScreenController.add(true);
-        _recordingQuestionController.add(true);
-      });
-
-      setTestScreenSwitcher();
-    } else if (assets['audio'] != '' &&
-        assets['second_audio'] != '' &&
-        assets['third_audio'] == '' &&
-        assets['fourth_audio'] == '') {
-      await _assetSetting.playSound(assets['audio']);
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['second_audio'], assets['delay_time']);
-
-      await _assetSetting.listenSoundCompletion().then((_) async {
-        print("debug : 두번째 오디오 종료 리스너");
-        _canSwitchScreenController.add(true);
-        _recordingQuestionController.add(true);
-      });
-
-      setTestScreenSwitcher();
-    } else if (assets['audio'] != '' &&
-        assets['second_audio'] != '' &&
-        assets['third_audio'] != '' &&
-        assets['fourth_audio'] == '') {
-      await _assetSetting.playSound(assets['audio']);
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['second_audio'], assets['delay_time']);
-      if (assets['question_no'] == -1) {
-        _recordingQuestionController.add(true);
+    for (int i = 0; i<audio_files.length; i++){
+      if(i<audio_delayes.length){
+        print("-----1-----");
+        print(audio_delayes[i]);
+        await _assetSetting.playDelayedSound(audio_files[i],audio_delayes[i]);
+      } else {
+        print("-----2-----");
+        print(audio_files[i]);
+        await _assetSetting.playSound(audio_files[i]);
       }
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['third_audio'], assets['second_delay_time']);
-
       await _assetSetting.listenSoundCompletion().then((_) async {
-        print("debug : 세번째 오디오 종료 리스너");
-        _canSwitchScreenController.add(true);
-        _recordingQuestionController.add(true);
+        print("debug : 오디오 종료 리스너");
+        if(i == audio_files.length-1) {
+          _canSwitchScreenController.add(true);
+          _recordingQuestionController.add(true);
+        }
       });
 
-      setTestScreenSwitcher();
-    } else if (assets['audio'] != '' &&
-        assets['second_audio'] != '' &&
-        assets['third_audio'] != '' &&
-        assets['fourth_audio'] != '') {
-      await _assetSetting.playSound(assets['audio']);
-      timeout = Timer(Duration(milliseconds: 100), () {
-        print("예비 타이머");
-      });
-      await _assetSetting.listenSoundCompletion().then((_) async {
-        print("debug : 네번째 오디오 종료 리스너");
-        _canSwitchScreenController.add(true);
-        _recordingQuestionController.add(true);
-      });
-      await _assetSetting.playDelayedSound(
-          assets['second_audio'], assets['delay_time']);
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['third_audio'], assets['second_delay_time']);
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.playDelayedSound(
-          assets['fourth_audio'], assets['third_delay_time']);
-      await _assetSetting.listenSoundCompletion();
-      await _assetSetting.setPage19Asset();
-      await _assetSetting.listenSoundCompletion();
-
-
-      setTestScreenSwitcher();
     }
+
+    setTestScreenSwitcher();
+
 
     if (recordQuestions.contains(widget.pageNumber)) {
       print("--start animation---");
@@ -246,9 +164,7 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
       await _assetSetting.setTimer();
     }
 
-    print('debug : $assets');
   }
-
 
   Future<void> setTestScreenSwitcher() async {
     countdown = assets['max_elapsed_time'];
@@ -257,30 +173,28 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
       setState(() {
         if (countdown > 0) {
           countdown--;
+          print(countdown);
+          if (countdown == 0) {
+            timer.cancel();
 
-          if (countdown == 0){
-            if (assets['question_no'] != -1 && assets['correct_answer'] != -1) {
-              saveAnswer(-1);
-            } else if (assets['question_no'] != -1 &&
-                assets['correct_answer'] == -1) {
-              saveRecord();
+            if (assets['question_no'] != -1) {
+              if (assets['correct_answer'] != -1) {
+                saveAnswer(-1);
+              } else if (assets['correct_answer'] == -1) {
+                saveRecord();
+              }
+            } else {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          QuestionView(pageNumber: widget.pageNumber + 1)));
             }
           }
-        } else if (assets['question_no'] == -1) {
-          // completer.complete();
-
-          timer.cancel();
-
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuestionView(pageNumber: widget.pageNumber + 1)));
         }
       });
     });
   }
-
 
   @override
   void initState() {
@@ -387,14 +301,15 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
       else if (assets['template_no'] == 2) {
         return Scaffold(
             body: Container(
-              color:Colors.white,
-              child: Column(children: [
-                        Image.asset(assets['wave'],
-                width: MediaQuery.of(context).size.width * 1, fit: BoxFit.cover),
-                        SizedBox(
+          color: Colors.white,
+          child: Column(children: [
+            Image.asset(assets['wave'],
+                width: MediaQuery.of(context).size.width * 1,
+                fit: BoxFit.cover),
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
-                        ),
-                        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Image.asset(
                 assets['question'],
                 width: MediaQuery.of(context).size.height * 0.45,
@@ -458,9 +373,9 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                           ))
                     ]);
                   })
-                        ]),
-                      ]),
-            ));
+            ]),
+          ]),
+        ));
       } //문제1 선택지3(큰문제)
       else if (assets['template_no'] == 3) {
         return Scaffold(
@@ -635,17 +550,22 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(assets['question'],
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.35,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.35,
                                     fit: BoxFit.fill)
                               ],
                             ),
                             if (assets['question_no'] == -1)
                               Text("이것은 연습 화면 입니다",
-                                  style: TextStyle(color: Colors.black38, fontSize: MediaQuery.of(context).size.height * 0.05))
+                                  style: TextStyle(
+                                      color: Colors.black38,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.05))
                             else
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.05,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
                               ),
                             if (assets['question_no'] != -1)
                               Column(
@@ -666,7 +586,8 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                                           Center(
                                             child: Text('말하세요',
                                                 style: TextStyle(
-                                                    fontSize: 30, color: Colors.red)),
+                                                    fontSize: 30,
+                                                    color: Colors.red)),
                                           ),
                                         ],
                                       )
@@ -683,8 +604,11 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                                           builder: (context, child) {
                                             // Use a Transform widget to scale the image with the center as the pivot point
                                             return Transform.scale(
-                                              scale: 1.0 - _animation.value * 0.2, // Adjust the multiplier for the desired effect
-                                              child: Image.asset('assets/images/record.png'), // Replace with your image path
+                                              scale:
+                                                  1.0 - _animation.value * 0.2,
+                                              // Adjust the multiplier for the desired effect
+                                              child: Image.asset(
+                                                  'assets/images/record.png'), // Replace with your image path
                                             );
                                           },
                                         ),
@@ -699,12 +623,11 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                         return Column(
                           children: [
                             SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.35),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.35),
                           ],
                         );
                     }),
-
-
               ],
             ),
           ),
@@ -740,7 +663,8 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                         TextButton(
                           child: Image.asset(assets['choice2'],
                               width: MediaQuery.of(context).size.height * 0.35,
-                              height: MediaQuery.of(context).size.height * 0.35),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.35),
                           onPressed: canSwitchScreen
                               ? () {
                                   saveAnswer(2);
@@ -755,7 +679,8 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                         TextButton(
                           child: Image.asset(assets['choice3'],
                               width: MediaQuery.of(context).size.height * 0.35,
-                              height: MediaQuery.of(context).size.height * 0.35),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.35),
                           onPressed: canSwitchScreen
                               ? () {
                                   saveAnswer(3);
@@ -764,7 +689,8 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                         ),
                         TextButton(
                             child: Image.asset(assets['choice4'],
-                                width: MediaQuery.of(context).size.height * 0.35,
+                                width:
+                                    MediaQuery.of(context).size.height * 0.35,
                                 height:
                                     MediaQuery.of(context).size.height * 0.35),
                             onPressed: canSwitchScreen
@@ -811,10 +737,10 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                                       }
                                     : null,
                                 child: Image.asset(assets['choice1'],
-                                    width:
-                                        MediaQuery.of(context).size.height * 0.2,
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.2,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
                                     fit: BoxFit.cover)),
                             Image.asset(
                               'assets/images/player.png',
@@ -834,10 +760,10 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                                       }
                                     : null,
                                 child: Image.asset(assets['choice2'],
-                                    width:
-                                        MediaQuery.of(context).size.height * 0.2,
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.2,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
                                     fit: BoxFit.cover)),
                             Image.asset(
                               'assets/images/player.png',
@@ -858,7 +784,8 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                                     : null,
                                 child: Image.asset(
                                   assets['choice3'],
-                                  width: MediaQuery.of(context).size.height * 0.2,
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.2,
                                   height:
                                       MediaQuery.of(context).size.height * 0.2,
                                 )),
@@ -877,9 +804,9 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
       } else if (assets['template_no'] == 8) {
         return Scaffold(
             body: Container(
-              color: Colors.white,
-              child: Stack(
-                        children: <Widget>[
+          color: Colors.white,
+          child: Stack(
+            children: <Widget>[
               SizedBox.expand(
                 child: FittedBox(
                   fit: BoxFit.cover,
@@ -891,9 +818,9 @@ class _QuestionViewState extends State<QuestionView> with SingleTickerProviderSt
                 ),
               ),
               //FURTHER IMPLEMENTATION
-                        ],
-                      ),
-            ));
+            ],
+          ),
+        ));
       } else if (assets['template_no'] == 9) {
         return Scaffold(
           body: Container(
