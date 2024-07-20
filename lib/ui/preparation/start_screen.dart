@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kobuk/core/route/route_name.dart';
+import 'package:kobuk/ui/question_view/template1_screen.dart';
+import 'package:kobuk/ui/question_view/template2_screen.dart';
 
 import '../../repo/audio_player.dart';
-import '../question_view.dart';
+import '../question_view/template3_screen.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -49,12 +51,13 @@ class _StartScreenState extends State<StartScreen> {
           ],
         ),
         Image.asset('assets/images/wave/light_blue_wave.png'),
+        ///문제 시작 전 시작 버튼 눌렀을 때 전환되는 화면 지정하는 부분
         ElevatedButton(
             onPressed: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => QuestionView(pageNumber:11)));
+                      builder: (context) => Template1Screen(pageNumber: 7)));
               _audioLogic.pauseSound();
             },
             child: Icon(Icons.arrow_forward))

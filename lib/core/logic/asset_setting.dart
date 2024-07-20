@@ -1,8 +1,7 @@
 // import 'dart:html';
 
 import 'package:logger/logger.dart';
-import 'package:video_player/video_player.dart';
-
+import '../../repo/video_player.dart';
 import '../../repo/audio_player.dart';
 import '../../repo/audio_recoder.dart';
 import '../../repo/shared_preference_manager.dart';
@@ -12,7 +11,7 @@ class AudioSetting {
   final _prefsManager = SharedPreferencesManager();
   final _audioRecorder = SoundRecorder();
   final _stopwatch = Stopwatch();
-  late VideoPlayerController _videoPlayerController;
+  final videoPlayer = VideoPlayerRepo();
 
 
   Future<void> playSound(String audioPath) async {
@@ -36,39 +35,31 @@ class AudioSetting {
   }
 
 
-  Future<void> setPage19Asset() async {
-    await _audioPlayer.playDelayedSound('sounds/page24-5.mp3', 400);
-    await listenSoundCompletion();
-    await _audioPlayer.playDelayedSound('sounds/page24-6.mp3', 300);
-    await listenSoundCompletion();
-    await _audioPlayer.playDelayedSound('sounds/page24-7.mp3', 300);
-  }
-
-  Future<void> startRecording(int questionNo) async {
+  Future<void> startRecording(int pageNo) async {
     String schoolCode = await _prefsManager.getSchoolCode();
     String classId = await _prefsManager.getClassId();
     String studentId = await _prefsManager.getStudentId();
     String testStartTime = await _prefsManager.getTestStartTime();
         await _audioRecorder.initRecoder();
         await _audioRecorder.startRecoding(
-            questionNo, schoolCode, classId, studentId, testStartTime);
+            pageNo, schoolCode, classId, studentId, testStartTime);
 
   }
 
-  Future<int> stopRecording(int questionNo) async {
+  Future<int> stopRecording(int pageNo) async {
     String schoolCode = await _prefsManager.getSchoolCode();
     String classId = await _prefsManager.getClassId();
     String studentId = await _prefsManager.getStudentId();
     String testStartTime = await _prefsManager.getTestStartTime();
     int isRecorded = await _audioRecorder.stopRecording(
-        schoolCode, classId, studentId, questionNo, testStartTime);
+        schoolCode, classId, studentId, pageNo, testStartTime);
 
     return isRecorded;
   }
 
-  void saveRecordAnswer(int questionNo, int isRecorded) {
+  void saveRecordAnswer(int questionNo, int pageNo, int isRecorded) {
     if (questionNo != -1) {
-      _prefsManager.saveRecord(questionNo, isRecorded);
+      _prefsManager.saveRecord(pageNo, isRecorded);
     }
   }
 
@@ -83,6 +74,12 @@ class AudioSetting {
 
   }
 
+  Future<int> stopTimer() async{
+    _stopwatch.stop();
+
+    return _stopwatch.elapsed.inSeconds;
+  }
+
   Future<void> listenSoundCompletion() async {
     print('listenSoundCompletion start');
     await _audioPlayer.listenAudioCompletion();
@@ -90,31 +87,27 @@ class AudioSetting {
   }
 
 
-  void saveChoiceAnswer(int questionNo, int correctAnswer,
-      int selectedAnswer) async {
-    _stopwatch.stop();
-    // _audioPlayer.pauseSound();
+  void saveChoiceAnswer(int questionNo, int pageNo, int correctAnswer,
+      int selectedAnswer, int elapsedTime) async {
+    // _stopwatch.stop();
     if (questionNo != -1) {
-      int elapsedTime = _stopwatch.elapsed.inSeconds;
+      // int elapsedTime = _stopwatch.elapsed.inSeconds;
       int isCorrect = correctAnswer == selectedAnswer ? 1 : 0;
-      _prefsManager.saveAnswer(questionNo, isCorrect, elapsedTime);
+      _prefsManager.saveAnswer(pageNo, isCorrect, elapsedTime);
     }
   }
 
-  void setVideoPlayer(String videoPath){
-    _videoPlayerController = VideoPlayerController.asset(
-      videoPath,
-    )..initialize();
+  Future<void> setVideo(String videoPath) async{
+    videoPlayer.setVideo(videoPath);
   }
 
-  void playVodeo(){
-    _videoPlayerController.play();
-  }
-  void disposeVideoPlayer(){
-    _videoPlayerController.dispose();
-
+  void playVideo(){
+    videoPlayer.playVideo();
   }
 
+  void disposeVideo(){
+    videoPlayer.dispose();
+  }
 
 
 }

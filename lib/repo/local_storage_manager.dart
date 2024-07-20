@@ -6,14 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class LocalStorageManager {
 
-  String getToday() {
-    DateTime now = DateTime.now();
-    DateFormat formatter = DateFormat('yyyy-MM-dd-HH-mm');
-    print("debug ${formatter.format(now)}");
-    return formatter.format(now);
-  }
-
-
+ ///로컬 디바이스의 저장소에 접근 권한이 있는지 확인
   Future<void> checkAndRequestPermissions() async {
     if (await Permission.storage.request().isGranted) {
       // 권한이 승인되었으면 외부 저장소에 쓰기를 진행할 수 있습니다.
@@ -23,10 +16,8 @@ class LocalStorageManager {
     }
   }
 
+  ///로컬 디바이스의 저장소 경로에 shared_preference에 저장되어 있는 정답 여부를 txt 파일로 저장
   Future<String> writeJsonFile(String schoolCode, String classId, String studentId, String testStartTime, Map<String,dynamic> data) async{
-
-    // try {
-    //   String currentDate = getToday();
 
       Directory? ex1 = await getExternalStorageDirectory();
 
@@ -39,9 +30,7 @@ class LocalStorageManager {
       print("debug:${file.path}");
 
       return "${ex2.path}";
-    // } catch (e){
-    //   return "$e";
-    // }
+
 
   }
 }
