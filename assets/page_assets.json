@@ -1,0 +1,670 @@
+{
+"page7": {
+"wave": "assets/images/wave/dark_blue_wave.png",
+"question": "assets/images/s7/question.png",
+"choice1": "assets/images/s7/choice1.png",
+"choice2": "assets/images/s7/choice2.png",
+"choice3": "assets/images/s7/choice3.png",
+"template_no": 1,
+"question_no": 1,
+"correct_answer": 1,
+"delay_time": 0,
+"max_elapsed_time": 6,
+"audio_files": [
+"sounds/page6.mp3"
+],
+"audio_delayes": []
+},
+"page8": {
+"wave": "assets/images/wave/dark_blue_wave.png",
+"question": "assets/images/s8/question.png",
+"choice1": "assets/images/s8/choice1.png",
+"choice2": "assets/images/s8/choice2.png",
+"choice3": "assets/images/s8/choice3.png",
+"template_no": 2,
+"question_no": 2,
+"correct_answer": 1,
+"delay_time": 0,
+"max_elapsed_time": 6,
+"audio_files": [
+"sounds/page7.mp3"
+],
+"audio_delayes": []
+},
+"page9": {
+"wave": "assets/images/wave/dark_blue_wave.png",
+"question": "assets/images/s9/question.png",
+"choice1": "assets/images/s9/choice1.png",
+"choice2": "assets/images/s9/choice2.png",
+"choice3": "assets/images/s9/choice3.png",
+"template_no": 3,
+"question_no": 3,
+"correct_answer": 2,
+"delay_time": 0,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page8.mp3"
+],
+"audio_delayes": []
+},
+"page10": {
+"wave": "assets/images/wave/dark_blue_wave.png",
+"question": "assets/images/s10/question.png",
+"choice1": "assets/images/s10/choice1.png",
+"choice2": "assets/images/s10/choice2.png",
+"choice3": "assets/images/s10/choice3.png",
+"template_no": 1,
+"question_no": 4,
+"correct_answer": 1,
+"delay_time": 0,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page9.mp3"
+],
+"audio_delayes": []
+},
+"page11": {
+"wave": "assets/images/wave/dark_blue_wave.png",
+"question": "assets/images/s11/question.png",
+"choice1": "assets/images/s11/choice1.png",
+"choice2": "assets/images/s11/choice2.png",
+"choice3": "assets/images/s11/choice3.png",
+"template_no": 4,
+"question_no": 5,
+"correct_answer": 2,
+"delay_time": 600,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page10.mp3",
+"sounds/page10-2.mp3"
+],
+"audio_delayes": [
+1000
+]
+},
+"page12": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s12/question.png",
+"template_no": 5,
+"question_no": -1,
+"delay_time": 100,
+"correct_answer": -1,
+"max_elapsed_time": 5,
+"audio_files": [
+"sounds/page11.mp3",
+"sounds/page11-2.mp3",
+"sounds/page11-3.mp3"
+],
+"audio_delayes": [
+100,
+500
+]
+},
+"page13": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s13/question.png",
+"template_no": 5,
+"question_no": 6,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page12.mp3"
+],
+"audio_delayes": []
+},
+"page14": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s14/question.png",
+"template_no": 5,
+"question_no": 7,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page13.mp3"
+],
+"audio_delayes": []
+},
+"page15": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s15/question.png",
+"template_no": 5,
+"question_no": 8,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page14.mp3"
+],
+"audio_delayes": []
+},
+"page16": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s16/question.png",
+"template_no": 5,
+"question_no": -1,
+"delay_time": 100,
+"correct_answer": -1,
+"max_elapsed_time": 5,
+"audio_files": [
+"sounds/page15.mp3",
+"sounds/page15-2.mp3",
+"sounds/page15-3.mp3"
+],
+"audio_delayes": [
+100,
+500
+]
+},
+"page17": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s17/question.png",
+"template_no": 5,
+"question_no": 9,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page16.mp3"
+],
+"audio_delayes": []
+},
+"page18": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s18/question.png",
+"template_no": 5,
+"question_no": 10,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page17.mp3"
+],
+"audio_delayes": []
+},
+"page19": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s19/question.png",
+"template_no": 5,
+"question_no": 11,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page18.mp3"
+],
+"audio_delayes": []
+},
+"page20": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s20/question.png",
+"template_no": 5,
+"question_no": 12,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page19.mp3"
+],
+"audio_delayes": []
+},
+"page21": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"choice1": "assets/images/s21/choice1.png",
+"choice2": "assets/images/s21/choice2.png",
+"choice3": "assets/images/s21/choice3.png",
+"choice4": "assets/images/s21/choice4.png",
+"template_no": 6,
+"question_no": 13,
+"delay_time": 1000,
+"correct_answer": 1,
+"question": "assets/images/s21/question.png",
+"max_elapsed_time": 6,
+"audio_files": [
+"sounds/page20.mp3",
+"sounds/page20-2.mp3",
+"sounds/page20-3.mp3"
+],
+"audio_delayes": [
+1000,
+500
+]
+},
+"page22": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"choice1": "assets/images/s22/choice1.png",
+"choice2": "assets/images/s22/choice2.png",
+"choice3": "assets/images/s22/choice3.png",
+"choice4": "assets/images/s22/choice4.png",
+"template_no": 6,
+"question_no": 14,
+"delay_time": 1000,
+"correct_answer": 3,
+"question": "assets/images/s22/question.png",
+"max_elapsed_time": 6,
+"audio_files": [
+"sounds/page21.mp3",
+"sounds/page21-2.mp3",
+"sounds/page21-3.mp3"
+],
+"audio_delayes": [
+1000,
+500
+]
+},
+"page23": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"choice1": "assets/images/s23/choice1.png",
+"choice2": "assets/images/s23/choice2.png",
+"choice3": "assets/images/s23/choice3.png",
+"choice4": "assets/images/s23/choice4.png",
+"template_no": 6,
+"question_no": 15,
+"delay_time": 1000,
+"correct_answer": 4,
+"question": "assets/images/s23/question.png",
+"max_elapsed_time": 6,
+"audio_files": [
+"sounds/page22.mp3",
+"sounds/page22-2.mp3",
+"sounds/page22-3.mp3"
+],
+"audio_delayes": [
+1000,
+700
+]
+},
+"page24": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"choice1": "assets/images/s24/choice1.png",
+"choice2": "assets/images/s24/choice2.png",
+"choice3": "assets/images/s24/choice3.png",
+"choice4": "assets/images/s24/choice4.png",
+"template_no": 6,
+"question_no": 16,
+"delay_time": 1000,
+"correct_answer": 2,
+"question": "assets/images/s24/question.png",
+"max_elapsed_time": 6,
+"audio_files": [
+"sounds/page23.mp3",
+"sounds/page23-2.mp3",
+"sounds/page23-3.mp3"
+],
+"audio_delayes": [
+1000,
+500
+]
+},
+"page25": {
+"wave": "assets/images/wave/light_blue_wave.png",
+"question": "assets/images/s25/question.png",
+"choice1": "assets/images/s25/choice1.png",
+"choice2": "assets/images/s25/choice2.png",
+"choice3": "assets/images/s25/choice3.png",
+"template_no": 7,
+"question_no": 17,
+"delay_time": 500,
+"correct_answer": 2,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page24.mp3",
+"sounds/page24-2.mp3",
+"sounds/page24-3.wav",
+"sounds/page24-4.mp3",
+"sounds/page24-5.wav",
+"sounds/page24-6.mp3",
+"sounds/page24-7.wav"
+],
+"audio_delayes": [
+500,
+500,
+300,
+500,
+300,
+500
+]
+},
+"page26": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s26/question.png",
+"choice1": "assets/images/s26/choice1.png",
+"choice2": "assets/images/s26/choice2.png",
+"choice3": "assets/images/s26/choice3.png",
+"template_no": 8,
+"question_no": -1,
+"video_path": "assets/videos/page20_re.mp4",
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 3,
+"audio_files": [
+"sounds/page25.mp3"
+],
+"audio_delayes": []
+},
+"page27": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s27/question.png",
+"choice1": "assets/images/s27/choice1.png",
+"choice2": "assets/images/s27/choice2.png",
+"choice3": "assets/images/s27/choice3.png",
+"template_no": 1,
+"question_no": 18,
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page26.mp3"
+],
+"audio_delayes": []
+},
+"page28": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s28/question.png",
+"choice1": "assets/images/s28/choice1.png",
+"choice2": "assets/images/s28/choice2.png",
+"choice3": "assets/images/s28/choice3.png",
+"template_no": 8,
+"question_no": -1,
+"video_path": "assets/videos/page22_re.mp4",
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 3,
+"audio_files": [],
+"audio_delayes": []
+},
+"page29": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s29/question.png",
+"choice1": "assets/images/s29/choice1.png",
+"choice2": "assets/images/s29/choice2.png",
+"choice3": "assets/images/s29/choice3.png",
+"template_no": 1,
+"question_no": 19,
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page28.mp3"
+],
+"audio_delayes": []
+},
+"page30": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s30/question.png",
+"choice1": "assets/images/s30/choice1.png",
+"choice2": "assets/images/s30/choice2.png",
+"choice3": "assets/images/s30/choice3.png",
+"template_no": 8,
+"question_no": -1,
+"video_path": "assets/videos/page24_re.mp4",
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 3,
+"audio_files": [],
+"audio_delayes": []
+},
+"page31": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s31/question.png",
+"choice1": "assets/images/s31/choice1.png",
+"choice2": "assets/images/s31/choice2.png",
+"choice3": "assets/images/s31/choice3.png",
+"template_no": 1,
+"question_no": 20,
+"delay_time": 0,
+"correct_answer": 3,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page30.wav"
+],
+"audio_delayes": []
+},
+"page32": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s32/question.png",
+"choice1": "assets/images/s32/choice1.png",
+"choice2": "assets/images/s32/choice2.png",
+"choice3": "assets/images/s32/choice3.png",
+"template_no": 8,
+"question_no": -1,
+"video_path": "assets/videos/page26_re.mp4",
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 3,
+"audio_files": [],
+"audio_delayes": []
+},
+"page33": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s33/question.png",
+"choice1": "assets/images/s33/choice1.png",
+"choice2": "assets/images/s33/choice2.png",
+"choice3": "assets/images/s33/choice3.png",
+"template_no": 1,
+"question_no": 21,
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page32.mp3"
+],
+"audio_delayes": []
+},
+"page34": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "",
+"choice1": "assets/images/s34/choice1.png",
+"choice2": "assets/images/s34/choice2.png",
+"choice3": "assets/images/s34/choice3.png",
+"template_no": 4,
+"question_no": 22,
+"video_path": "",
+"delay_time": 0,
+"correct_answer": 1,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page33.mp3"
+],
+"audio_delayes": []
+},
+"page35": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "assets/images/s35/question.png",
+"choice1": "assets/images/s35/choice1.png",
+"choice2": "assets/images/s35/choice2.png",
+"choice3": "assets/images/s35/choice3.png",
+"template_no": 8,
+"question_no": -1,
+"video_path": "assets/videos/page35_re.mp4",
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 3,
+"audio_files": [],
+"audio_delayes": []
+},
+"page36": {
+"wave": "assets/images/wave/green_wave.png",
+"question": "",
+"choice1": "assets/images/s36/choice1.png",
+"choice2": "assets/images/s36/choice2.png",
+"choice3": "assets/images/s36/choice3.png",
+"template_no": 9,
+"question_no": 23,
+"video_path": "assets/videos/page36_question_re.mp4",
+"delay_time": 0,
+"correct_answer": 3,
+"max_elapsed_time": 10,
+"audio_files": [],
+"audio_delayes": []
+},
+"page37": {
+"wave": "assets/images/wave/violet_wave.png",
+"question": "assets/images/s37/question.png",
+"choice1": "assets/images/s37/choice1.png",
+"choice2": "assets/images/s37/choice2.png",
+"choice3": "assets/images/s37/choice3.png",
+"template_no": 9,
+"question_no": 24,
+"video_path": "assets/videos/page28_question.mp4",
+"delay_time": 0,
+"correct_answer": 1,
+"max_elapsed_time": 10,
+"audio_files": [],
+"audio_delayes": []
+},
+"page38": {
+"wave": "assets/images/wave/violet_wave.png",
+"question": "assets/images/s38/question.png",
+"choice1": "assets/images/s38/choice1.png",
+"choice2": "assets/images/s38/choice2.png",
+"choice3": "assets/images/s38/choice3.png",
+"template_no": 1,
+"question_no": 25,
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page34.mp3"
+],
+"audio_delayes": []
+},
+"page39": {
+"wave": "assets/images/wave/violet_wave.png",
+"question": "assets/images/s39/question.png",
+"choice1": "assets/images/s39/choice1.png",
+"choice2": "assets/images/s39/choice2.png",
+"choice3": "assets/images/s39/choice3.png",
+"template_no": 9,
+"question_no": 26,
+"video_path": "assets/videos/page30_question.mp4",
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 10,
+"audio_files": [],
+"audio_delayes": []
+},
+"page40": {
+"wave": "assets/images/wave/pink_wave.png",
+"question": "assets/images/s40/question.png",
+"choice1": "assets/images/s40/choice1.png",
+"choice2": "assets/images/s40/choice2.png",
+"choice3": "assets/images/s40/choice3.png",
+"template_no": 1,
+"question_no": 27,
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page36.mp3"
+],
+"audio_delayes": []
+},
+"page41": {
+"wave": "assets/images/wave/pink_wave.png",
+"question": "assets/images/s41/question.png",
+"choice1": "assets/images/s41/choice1.png",
+"choice2": "assets/images/s41/choice2.png",
+"choice3": "assets/images/s41/choice3.png",
+"template_no": 3,
+"question_no": 28,
+"delay_time": 0,
+"correct_answer": 3,
+"max_elapsed_time": 8,
+"audio_files": [
+"sounds/page37.mp3"
+],
+"audio_delayes": []
+},
+"page42": {
+"wave": "assets/images/wave/pink_wave.png",
+"question": "assets/images/s42/question.png",
+"choice1": "assets/images/s42/choice1.png",
+"choice2": "assets/images/s42/choice2.png",
+"choice3": "assets/images/s42/choice3.png",
+"template_no": 1,
+"question_no": 29,
+"delay_time": 0,
+"correct_answer": 2,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page38.mp3"
+],
+"audio_delayes": []
+},
+"page43": {
+"wave": "assets/images/wave/pink_wave.png",
+"question": "assets/images/s43/question.png",
+"choice1": "assets/images/s43/choice1.png",
+"choice2": "assets/images/s43/choice2.png",
+"choice3": "assets/images/s43/choice3.png",
+"template_no": 1,
+"question_no": 30,
+"delay_time": 0,
+"correct_answer": 3,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page39.mp3"
+],
+"audio_delayes": []
+},
+"page44": {
+"wave": "assets/images/wave/orange_wave.png",
+"question": "assets/images/s44/question.png",
+"choice1": "assets/images/s44/choice1.png",
+"choice2": "assets/images/s44/choice2.png",
+"choice3": "assets/images/s44/choice3.png",
+"template_no": 1,
+"question_no": 31,
+"delay_time": 0,
+"correct_answer": 1,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page40.mp3"
+],
+"audio_delayes": []
+},
+"page45": {
+"wave": "assets/images/wave/orange_wave.png",
+"choice1": "assets/images/s45/choice1.png",
+"choice2": "assets/images/s45/choice2.png",
+"choice3": "assets/images/s45/choice3.png",
+"template_no": 10,
+"question_no": 32,
+"delay_time": 0,
+"correct_answer": 3,
+"max_elapsed_time": 10,
+"audio_files": [
+"sounds/page41.mp3"
+],
+"audio_delayes": []
+},
+"page46": {
+"wave": "assets/images/wave/orange_wave.png",
+"question": "assets/images/s46/question.png",
+"template_no": 5,
+"question_no": 33,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 4,
+"audio_files": [
+"sounds/page46.mp3"
+],
+"audio_delayes": []
+},
+"page47": {
+"wave": "assets/images/wave/orange_wave.png",
+"question": "assets/images/s47/question.png",
+"template_no": 11,
+"question_no": 34,
+"delay_time": 0,
+"correct_answer": -1,
+"max_elapsed_time": 13,
+"audio_files": [
+"sounds/page47.mp3"
+],
+"audio_delayes": []
+}
+}
+

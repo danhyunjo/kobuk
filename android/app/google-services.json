@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "441482129781",
+    "firebase_url": "https://kobuk-dd149-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kobuk-dd149",
+    "storage_bucket": "kobuk-dd149.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441482129781:android:3d19837828064380db633c",
+        "android_client_info": {
+          "package_name": "com.example.kobuk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaF4ex5j48p1HLH5vRMRpSmo6LO6SVr74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

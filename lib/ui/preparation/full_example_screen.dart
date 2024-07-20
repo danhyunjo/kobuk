@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/logic/sound_player.dart';
+import '../../repo/audio_player.dart';
 import '../../core/route/route_name.dart';
 
 class FullExampleScreen extends StatefulWidget {
@@ -12,17 +12,17 @@ class FullExampleScreen extends StatefulWidget {
 
 class _FullExampleScreenState extends State<FullExampleScreen> {
   final String audioPath = 'sounds/full_exam.mp3';
-  final SoundPlayerLogic _logic = SoundPlayerLogic();
+  final SoundPlayer _audioLogic = SoundPlayer();
 
   @override
   void initState() {
     super.initState();
-    _logic.playSound(audioPath);
+    _audioLogic.playSound(audioPath);
   }
 
   @override
   void dispose(){
-    _logic.dispose();
+    _audioLogic.dispose();
     super.dispose();
   }
 
@@ -33,15 +33,23 @@ class _FullExampleScreenState extends State<FullExampleScreen> {
         children: [
           Image.asset('assets/images/wave/light_blue_wave.png'),
           const SizedBox(height: 30,),
-          Image.asset('assets/images/full_exam.png'),
-          TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteName.postureExam);
-              },
-              child: Image.asset(
-                'assets/images/arrow.png',
-                width: MediaQuery.of(context).size.width*0.1,
-              )),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+
+            children: [
+              Image.asset('assets/images/full_exam.png',height: MediaQuery.of(context).size.height * 0.5),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteName.postureExam);
+                    _audioLogic.pauseSound();
+                  },
+                  child: Image.asset(
+                    'assets/images/arrow.png',
+                    width: MediaQuery.of(context).size.width*0.1,
+                  )),
+            ],
+          ),
+
         ],
       ),
     );
